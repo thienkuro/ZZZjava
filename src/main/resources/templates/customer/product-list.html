@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách sản phẩm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        img {
+            height: 80px;
+        }
+
+        .actions a {
+            margin: 0 5px;
+            text-decoration: none;
+            color: blue;
+        }
+
+        .add-btn {
+            margin-top: 10px;
+            display: inline-block;
+            padding: 6px 10px;
+            background-color: green;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .badge {
+            background-color: orange;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Danh sách sản phẩm tập gym</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th scope="col">Ảnh</th>
+            <th scope="col">Tên sản phẩm</th>
+            <th scope="col">Giá</th>
+            <th scope="col">Danh mục</th>
+            <th scope="col">Xuất xứ</th>
+            <th scope="col">Đã bán</th>
+            <th scope="col">Ngày thêm</th>
+            <th scope="col">Badge</th>
+            <th scope="col">Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="product : ${products}">
+            <td>
+                <img th:src="${product.imageUrl} != null ? @{/${product.imageUrl}} : @{/images/no-image.png}" src="/images/no-image.png" alt="Ảnh sản phẩm">
+            </td>
+            <td th:text="${product.title}"></td>
+            <td th:text="${#numbers.formatInteger(product.price, 0, 'POINT')} + ' ₫'"></td>
+            <td th:text="${product.category}"></td>
+            <td th:text="${product.origin}"></td>
+            <td th:text="${product.sold}"></td>
+            <td th:text="${product.dateAdded}"></td>
+            <td>
+                <span th:if="${product.badge}" class="badge" th:text="${product.badge}"></span>
+            </td>
+            <td class="actions">
+                <a th:href="@{/products/edit/{id}(id=${product.id})}">✏️ Sửa</a>
+                <a th:href="@{/products/delete/{id}(id=${product.id})}"
+                onclick="return confirm('Xác nhận xóa sản phẩm này?')">🗑️ Xóa</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<a class="add-btn" th:href="@{/products/add}">+ Thêm sản phẩm</a>
+
+</body>
+</html>

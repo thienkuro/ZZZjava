@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GYMSHOP - Thiết bị tập luyện</title>
+    <link rel="icon" href="/images/logo.png" th:href="@{/images/logo.png}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
+    <style>
+        .center-text {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-1">
+        <div class="share">
+            <span>Subscribe to our :</span>
+            <a href="#" class="fab fa-facebook" title="Facebook"><span class="visually-hidden">Facebook</span></a>
+            <a href="#" class="fab fa-google" title="Google"><span class="visually-hidden">Google</span></a>
+            <a href="#" class="fab fa-instagram" title="Instagram"><span class="visually-hidden">Instagram</span></a>
+            <a href="#" class="fab fa-tiktok" title="TikTok"><span class="visually-hidden">TikTok</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="header-2">
+        <img src=""
+            title="Gymshop.vn- Shop đồ tập GYM" alt="Gymshop.vn- Shop đồ tập GYM" class="img-fluid" width="300"
+            height="62">
+        <form action="#" class="search-bar-container">
+            <input type="search" id="search-bar" placeholder="Tìm kiếm...">
+            <label for="search-bar" class="fas fa-search"></label>
+            <button type="submit" style="display:none;"></button>
+        </form>
+    </div>
+
+    <div class="header-3">
+        <div id="menu-bar" class="fas fa-bars"></div>
+        <nav class="navbar navbar-margin-left-auto">
+            <a th:href="@{/customer/home}">Trang chủ</a>
+            <div class="dropdown">
+                <a href="#" class="dropbtn">Danh mục <span class="fas fa-chevron-down"></span></a>
+                <div class="dropdown-content">
+                    <a href="#">Tất cả</a>
+                    <a href="#">Dụng cụ tập tạ</a>
+                    <a href="#">Máy tập Cardio</a>
+                    <a href="#">Dụng cụ tập toàn thân</a>
+                    <a href="#">Phụ kiện tập luyện</a>
+                    <a href="#">Dụng cụ hỗ trợ phục hồi</a>
+                    <a href="#">Thực phẩm bổ sung</a>
+                    <a href="#">Dụng cụ đo lường sức khỏe</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="dropbtn">Sắp xếp theo giá <span class="fas fa-chevron-down"></span></a>
+                <div class="dropdown-content">
+                    <a href="#">Giá thấp đến cao</a>
+                    <a href="#">Giá cao đến thấp</a>
+                </div>
+            </div>
+            <a href="#">Phổ biến</a>
+            <a href="#">Mới nhất</a>
+            <a href="#">Bán chạy</a>
+            <a href="#contact">Liên hệ <span class="fas fa-phone"></span></a>
+        </nav>
+
+        <div class="icons">
+            <a href="#" class="fas fa-shopping-cart" title="Giỏ hàng">
+            </a>
+            <a th:href="@{/vitri}" class="fas fa-store location"></a>
+            <div class="dropdown">
+                <a href="#" class="fas fa-user-circle" title="Tài khoản" onclick="toggleDropdown()">
+                </a>
+                <div id="dropdownContent" class="dropdown-content">
+                    <a th:href="@{/customer/login}">Đăng nhập</a>
+                    <a th:href="@{/dangky}">Đăng ký</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Slideshow -->
+<div class="slideshow-container">
+    <div class="mySlides fade">
+        <img src="/images/may-chay-bo.jpg"
+            th:src="@{/images/may-chay-bo.jpg}"
+            alt="Máy chạy bộ"
+            title="Máy chạy bộ">
+    </div>
+    <div class="mySlides fade">
+        <img src="/images/ta-dia-5kg.jpg"
+            th:src="@{/images/ta-dia-5kg.jpg}"
+            alt="Tạ đĩa 5kg"
+            title="Tạ đĩa 5kg">
+    </div>
+    <div class="mySlides fade">
+        <img src="/images/xe-dap-tap.jpg"
+            th:src="@{/images/xe-dap-tap.jpg}"
+            alt="Xe đạp tập"
+            title="Xe đạp tập">
+    </div>
+    <div class="mySlides fade">
+        <img src="/images/photo-quaint-vintage-flower-shop-floral-arrangements-backdrop_1060272-55347.avif"
+            alt="Cửa hàng hoa cổ điển"
+            title="Cửa hàng hoa cổ điển">
+    </div>
+</div>
+    <div class="center-text">
+    <h1>GYMSHOP - Dụng cụ tập GYM</h1>
+    </div>
+
+<section class="category" id="category">
+    <main>
+            <div class="products">
+                <div class="product" th:each="product : ${products}">
+                    <td>
+                        <img src="/images/no-image.png"
+                            th:if="${product.imageUrl != null}" 
+                            th:src="@{'/' + ${product.imageUrl}}" 
+                            alt="Ảnh sản phẩm" height="80">
+                    </td>
+                    <h3 th:text="${product.title != null && !#strings.isEmpty(product.title) ? product.title : 'Không có tên sản phẩm'}">Không có tên sản phẩm</h3>
+                    <p><i th:text="${product.category}"></i></p>
+                    <p><b>Giá: <span th:text="${product.price} + ' VND'"></span></b></p>
+                    <p><b>Đã bán: <span th:text="${product.sold}"></span></b></p>
+                    <p><b>Xuất xứ: <span th:text="${product.origin}"></span></b></p>
+                    <div class="product-info">
+                        <p class="product-date" th:text="${product.dateAdded != null ? #temporals.format(product.dateAdded, 'dd/MM/yyyy') : 'Không có'}">Ngày thêm</p>
+
+                        <a th:href="@{'/order/' + ${product.id}}" class="order-btn">
+                            <b>Đặt Hàng</b>
+                        </a>
+                    </div>
+                </div>
+            </div>
+    </main>
+</section>
+
+<!-- Footer -->
+<form action="last" style="background-color: rgb(216, 212, 212);">
+<div class="line" style="background-color: pink; width: 100%; height: 5px;"></div>
+<div class="last-container">
+
+</div>
+<div>
+<div class="hotline">
+    
+    <li>
+        <h3>HỖ TRỢ KHÁCH HÀNG</h3><br>
+        <a href="#" style="color: #0043ff;">Hot line: <b>0397002733</b></a><br>
+        <a href="#">Các câu hỏi thường gặp</a><br>
+        <a href="#">Gửi yêu cầu hỗ trợ</a><br>
+        <a href="#">Hướng dẫn đặt hàng</a><br>
+        <a href="#">Phương thức vận chuyển</a><br>
+        <a href="#">Chính sách đổi trả</a><br>
+    </li>
+    <li class="g">
+        <h3>VỀ CHÚNG TÔI</h3><br>
+        <a href="#">Giới thiệu</a><br>
+        <a href="#">Liên hệ</a><br>
+        <a href="#">Chính sách bảo mật</a><br>
+        <a href="#">Điều khoản sử dụng</a><br>
+        <a href="#">Bảo mật thông tin </a><br>
+        <a href="#">Tư vấn khách hàng</a>
+    </li>
+    <li>
+        <h3>HỢP TÁC VÀ LIÊN KẾT</h3><br>
+        <a href="https://www.flowercorner.vn/">https://www.flowercorner.vn/</a><br>
+        <a href="#">Cẩm nang</a><br>
+        <div class="lienhe">
+
+        </div>
+        <h3>THANH TOÁN</h3>
+        <div class="thanhtoan">
+            <a href="#"><img src="/WebMiPham/visa.png" alt=""></a>
+            <a href="#"><img src="/WebMiPham/atm-card.png" alt=""></a>
+        </div>    
+    </li>
+    <li>
+        <h3>CẬP NHẬT THÔNG TIN KHUYẾN MÃI</h3><br>  
+        <div class="last-one">
+        <input type="email" placeholder="Nhập email của bạn">
+        <button id="c">Cập nhật</button><br>
+        </div>
+        <br>    <h3>KHIẾU NẠI GÓP Ý</h3><br>
+        <button>0397002733</button><br>
+    </li>
+    <h3>KẾT NỐI</h3>
+    <div class="ketnoi">
+        <img src="images/facebook.png"  alt="facebook">
+        <img src="images/instagram.png" alt="instagram">
+        <img src="images/gmail.png" alt="gmail">
+
+    </div>
+</div>
+</form>
+<script>
+var slideIndex = 0;
+showSlides();
+</script>
+
+</body>
+</html>

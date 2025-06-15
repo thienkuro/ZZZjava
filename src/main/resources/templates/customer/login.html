@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GYMSHOP - Thiết bị tập luyện</title>
+    <link rel="icon" href="/images/logo.png" th:href="@{/images/logo.png}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
+    <style>
+        .center-text {
+            text-align: center;
+        }
+                body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f5f5f5;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            margin: 50px auto;
+            padding: 20px;
+            max-width: 1000px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        .login-container, .register-container {
+            flex: 1;
+            padding: 20px;
+            margin: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .login-container h1, .register-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .login-container label, .register-container p {
+            display: block;
+            margin: 10px 0 5px;
+            font-size: 16px;
+        }
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px;
+            box-sizing: border-box;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        .login-container .button, .register-container .button {
+            background-color: #8db7d3;
+            color: #fff1b7;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .login-container .button:hover, .register-container .button:hover {
+            background-color: palevioletred;
+        }
+        .login-container .icons {
+            text-align: center;
+            margin: 10px 0;
+        }
+        .login-container .icons a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #555;
+            font-size: 20px;
+        }
+        .login-container p {
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                margin: 20px;
+                padding: 10px;
+            }
+            .login-container h1, .register-container h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-1">
+        <div class="share">
+            <span>Subscribe to our florist :</span>
+            <a href="#" class="fab fa-facebook" title="Facebook"><span class="visually-hidden">Facebook</span></a>
+            <a href="#" class="fab fa-google" title="Google"><span class="visually-hidden">Google</span></a>
+            <a href="#" class="fab fa-instagram" title="Instagram"><span class="visually-hidden">Instagram</span></a>
+            <a href="#" class="fab fa-tiktok" title="TikTok"><span class="visually-hidden">TikTok</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="header-2">
+        <img src=""
+            title="FlowerCorner.vn - Shop hoa tươi" alt="FlowerCorner.vn - Shop hoa tươi" class="img-fluid" width="300"
+            height="62">
+        <form action="#" class="search-bar-container">
+            <input type="search" id="search-bar" placeholder="Tìm kiếm...">
+            <label for="search-bar" class="fas fa-search"></label>
+            <button type="submit" style="display:none;"></button>
+        </form>
+    </div>
+
+    <div class="header-3">
+        <div id="menu-bar" class="fas fa-bars"></div>
+        <nav class="navbar navbar-margin-left-auto">
+            <a th:href="@{/customer/home}">Trang chủ</a>
+            <div class="dropdown">
+                <a href="#" class="dropbtn">Danh mục <span class="fas fa-chevron-down"></span></a>
+                <div class="dropdown-content">
+                    <a href="#">Tất cả</a>
+                    <a href="#">Dụng cụ tập tạ</a>
+                    <a href="#">Máy tập Cardio</a>
+                    <a href="#">Dụng cụ tập toàn thân</a>
+                    <a href="#">Phụ kiện tập luyện</a>
+                    <a href="#">Dụng cụ hỗ trợ phục hồi</a>
+                    <a href="#">Thực phẩm bổ sung</a>
+                    <a href="#">Dụng cụ đo lường sức khỏe</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="dropbtn">Sắp xếp theo giá <span class="fas fa-chevron-down"></span></a>
+                <div class="dropdown-content">
+                    <a href="#">Giá thấp đến cao</a>
+                    <a href="#">Giá cao đến thấp</a>
+                </div>
+            </div>
+            <a href="#">Phổ biến</a>
+            <a href="#">Mới nhất</a>
+            <a href="#">Bán chạy</a>
+            <a href="#contact">Liên hệ <span class="fas fa-phone"></span></a>
+        </nav>
+
+        <div class="icons">
+            <a href="#" class="fas fa-shopping-cart" title="Giỏ hàng">
+            </a>
+            <a th:href="@{/vitri}" class="fas fa-store location"></a>
+            <div class="dropdown">
+                <a href="#" class="fas fa-user-circle" title="Tài khoản" onclick="toggleDropdown()">
+                </a>
+                <div id="dropdownContent" class="dropdown-content">
+                    <a th:href="@{/login}">Đăng nhập</a>
+                    <a th:href="@{/dangky}">Đăng ký</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Slideshow -->
+<div class="slideshow-container">
+    <div class="mySlides fade">
+        <img src="/images/may-chay-bo.jpg"
+            th:src="@{/images/may-chay-bo.jpg}"
+            alt="Máy chạy bộ"
+            title="Máy chạy bộ">
+    </div>
+    <div class="mySlides fade">
+        <img src="/images/ta-dia-5kg.jpg"
+            th:src="@{/images/ta-dia-5kg.jpg}"
+            alt="Tạ đĩa 5kg"
+            title="Tạ đĩa 5kg">
+    </div>
+    <div class="mySlides fade">
+        <img src="/images/xe-dap-tap.jpg"
+            th:src="@{/images/xe-dap-tap.jpg}"
+            alt="Xe đạp tập"
+            title="Xe đạp tập">
+    </div>
+    <div class="mySlides fade">
+        <img src="/images/photo-quaint-vintage-flower-shop-floral-arrangements-backdrop_1060272-55347.avif"
+            alt="Cửa hàng hoa cổ điển"
+            title="Cửa hàng hoa cổ điển">
+    </div>
+</div>
+    <div class="center-text">
+    <h1>GYMSHOP - Dụng cụ tập GYM</h1>
+    </div>
+
+<div class="container">
+        <div class="login-container">
+            <h1>Phản Hồi Khách Hàng</h1>
+            <b style="font-size: 20px;">Tôi là một khách hàng cũ</b>
+            <form action="/login" method="post">
+                <label for="username" style="font-size: 20px;">Tên đăng nhập:</label>
+                <input
+                    style="font-size: 18px; width: 100%; padding: 10px; margin-bottom: 15px;"
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Nhập tên đăng nhập"
+                    required
+                >
+
+                <label for="password" style="font-size: 20px;">Mật khẩu:</label>
+                <input
+                    style="font-size: 18px; width: 100%; padding: 10px; margin-bottom: 20px;"
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Nhập mật khẩu"
+                    required
+                >
+
+                <button type="submit" class="button" style="font-size: 20px;">Đăng Nhập</button>
+            </form>
+
+
+            <div class="icons">
+                <span style="font-size: 20px;">Hoặc đăng nhập bằng:</span>
+                <a href="#" class="fab fa-facebook"></a>
+                <a href="#" class="fab fa-google"></a>
+                <a href="#" class="fab fa-instagram"></a>
+                <a href="#" class="fab fa-tiktok"></a>
+            </div>
+            <p style="font-size: 18px;">Chưa có tài khoản? <a href="register.html" style="color: palevioletred;">Đăng ký</a></p>
+        </div>
+        <div class="register-container">
+            <h1>Khách Hàng Mới</h1>
+            <b style="font-size: 20px;">Đăng ký tài khoản</b>
+            <p style="font-size: 18px;">Bằng cách tạo tài khoản, bạn sẽ có thể mua sắm nhanh hơn, cập nhật trạng thái đơn hàng và theo dõi các đơn hàng bạn đã thực hiện trước đó.</p>
+           <a href="dangky.html"> <button class="button" style="font-size: 20px;">Tiếp Tục</button></a>
+        </div>
+    </div>
+
+<!-- Footer -->
+<form action="last" style="background-color: rgb(216, 212, 212);">
+<div class="line" style="background-color: pink; width: 100%; height: 5px;"></div>
+<div class="last-container">
+
+</div>
+<div>
+<div class="hotline">
+    
+    <li>
+        <h3>HỖ TRỢ KHÁCH HÀNG</h3><br>
+        <a href="#" style="color: #0043ff;">Hot line: <b>0397002733</b></a><br>
+        <a href="#">Các câu hỏi thường gặp</a><br>
+        <a href="#">Gửi yêu cầu hỗ trợ</a><br>
+        <a href="#">Hướng dẫn đặt hàng</a><br>
+        <a href="#">Phương thức vận chuyển</a><br>
+        <a href="#">Chính sách đổi trả</a><br>
+    </li>
+    <li class="g">
+        <h3>VỀ CHÚNG TÔI</h3><br>
+        <a href="#">Giới thiệu</a><br>
+        <a href="#">Liên hệ</a><br>
+        <a href="#">Chính sách bảo mật</a><br>
+        <a href="#">Điều khoản sử dụng</a><br>
+        <a href="#">Bảo mật thông tin </a><br>
+        <a href="#">Tư vấn khách hàng</a>
+    </li>
+    <li>
+        <h3>HỢP TÁC VÀ LIÊN KẾT</h3><br>
+        <a href="https://www.flowercorner.vn/">https://www.flowercorner.vn/</a><br>
+        <a href="#">Cẩm nang</a><br>
+        <div class="lienhe">
+
+        </div>
+        <h3>THANH TOÁN</h3>
+        <div class="thanhtoan">
+            <a href="#"><img src="/WebMiPham/visa.png" alt=""></a>
+            <a href="#"><img src="/WebMiPham/atm-card.png" alt=""></a>
+        </div>    
+    </li>
+    <li>
+        <h3>CẬP NHẬT THÔNG TIN KHUYẾN MÃI</h3><br>  
+        <div class="last-one">
+        <input type="email" placeholder="Nhập email của bạn">
+        <button id="c">Cập nhật</button><br>
+        </div>
+        <br>    <h3>KHIẾU NẠI GÓP Ý</h3><br>
+        <button>0397002733</button><br>
+    </li>
+    <h3>KẾT NỐI</h3>
+    <div class="ketnoi">
+        <img src="images/facebook.png"  alt="facebook">
+        <img src="images/instagram.png" alt="instagram">
+        <img src="images/gmail.png" alt="gmail">
+
+    </div>
+</div>
+</form>
+<script>
+var slideIndex = 0;
+showSlides();
+</script>
+
+</body>
+</html>
