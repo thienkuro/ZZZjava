@@ -41,11 +41,15 @@ public class User {
     @Temporal(TemporalType.DATE)
     private Date updatedAt;
 
+    @Column(name = "admin")
+    private Boolean admin;
+
     // ===== Constructors =====
     public User() {
     }
 
-    public User(Long id, String username, String address, Date createdAt, String email, String fullName, String password, String phoneNumber, String status, Date updatedAt) {
+    public User(Long id, String username, String address, Date createdAt, String email, String fullName,
+            String password, String phoneNumber, String status, Date updatedAt) {
         this.id = id;
         this.username = username;
         this.address = address;
@@ -56,6 +60,7 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.status = status;
         this.updatedAt = updatedAt;
+        this.admin = admin;
     }
 
     // ===== Getters and Setters =====
@@ -137,5 +142,13 @@ public class User {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
     }
 }
