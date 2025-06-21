@@ -2,46 +2,38 @@
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <title>Đặt Hàng</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GYMSHOP - Thiết bị tập luyện</title>
-    <link rel="icon" href="/images/logo.png" th:href="@{/images/logo.png}" type="image/x-icon">
+    <link rel="icon" th:href="@{/images/logo.png}" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
-    <style>
-        .center-text {
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/cart.css}">
 </head>
 <body>
 
+<!-- HEADER -->
 <header>
     <div class="header-1">
         <div class="share">
-            <span>Subscribe to our :</span>
-            <a href="#" class="fab fa-facebook" title="Facebook"><span class="visually-hidden">Facebook</span></a>
-            <a href="#" class="fab fa-google" title="Google"><span class="visually-hidden">Google</span></a>
-            <a href="#" class="fab fa-instagram" title="Instagram"><span class="visually-hidden">Instagram</span></a>
-            <a href="#" class="fab fa-tiktok" title="TikTok"><span class="visually-hidden">TikTok</span>
-            </a>
+            <span>Subscribe to our florist :</span>
+            <a href="#" class="fab fa-facebook"></a>
+            <a href="#" class="fab fa-google"></a>
+            <a href="#" class="fab fa-instagram"></a>
+            <a href="#" class="fab fa-tiktok"></a>
         </div>
     </div>
-
-    <div class="header-2">
-        <img src=""
-            title="Gymshop.vn- Shop đồ tập GYM" alt="Gymshop.vn- Shop đồ tập GYM" class="img-fluid" width="300"
-            height="62">
+    <div class="header-2"> 
+        <img src="https://www.flowercorner.vn/image/catalog/common/shop-hoa-tuoi-flowercorner-logo.png.webp"
+            title="FlowerCorner.vn - Shop hoa tươi" alt="FlowerCorner.vn - Shop hoa tươi"
+            class="img-fluid" width="300" height="62">
         <form action="#" class="search-bar-container">
             <input type="search" id="search-bar" placeholder="Tìm kiếm...">
             <label for="search-bar" class="fas fa-search"></label>
-            <button type="submit" style="display:none;"></button>
         </form>
     </div>
-
     <div class="header-3">
         <div id="menu-bar" class="fas fa-bars"></div>
         <nav class="navbar navbar-margin-left-auto">
-            <a th:href="@{/customer/home}">Trang chủ</a>
+            <a th:href="@{/customer/product-list}">Trang chủ</a>
             <div class="dropdown">
                 <a href="#" class="dropbtn">Danh mục <span class="fas fa-chevron-down"></span></a>
                 <div class="dropdown-content">
@@ -66,8 +58,7 @@
         </nav>
 
         <div class="icons">
-            <a href="#" class="fas fa-shopping-cart" title="Giỏ hàng">
-            </a>
+            <a th:href="@{/customer/cart}" class="fas fa-shopping-cart" title="Giỏ hàng"></a>
             <a th:href="@{/vitri}" class="fas fa-store location"></a>
             <div class="dropdown">
                 <a href="#" class="fas fa-user-circle" title="Tài khoản" onclick="toggleDropdown()"></a>
@@ -83,105 +74,104 @@
                 </div>
             </div>
         </div>
-</div>
-
-            </div>
-        </div>
-    </div>
 </header>
-    <div class="center-text">
-    <h1>GYMSHOP - Dụng cụ tập GYM</h1>
+
+<!-- THÔNG BÁO -->
+<!-- THÔNG BÁO -->
+<div th:if="${message}" style="text-align:center; color: green; font-weight: bold; font-size: 20px; margin: 10px 0;">
+    <p th:text="${message}"></p>
+</div>
+
+<!-- GIỎ HÀNG -->
+<div class="container">
+    <h1 style="text-align: center; font-size: 32px; color: #d26b8c;">Giỏ hàng của bạn</h1>
+
+    <div th:if="${#lists.isEmpty(cart)}" style="text-align: center; font-size: 18px; color: gray;">
+        Giỏ hàng của bạn đang trống.
     </div>
 
-<section class="category" id="category">
-    <main>
-            <div class="products">
-                <div class="product" th:each="product : ${products}">
-                    <td>
-                        <img src="/images/no-image.png"
-                            th:if="${product.imageUrl != null}" 
-                            th:src="@{'/' + ${product.imageUrl}}" 
-                            alt="Ảnh sản phẩm" height="80">
-                    </td>
-                    <h3 th:text="${product.title != null && !#strings.isEmpty(product.title) ? product.title : 'Không có tên sản phẩm'}">Không có tên sản phẩm</h3>
-                    <p><i th:text="${product.category}"></i></p>
-                    <p><b>Giá: <span th:text="${product.price} + ' VND'"></span></b></p>
-                    <p><b>Đã bán: <span th:text="${product.sold}"></span></b></p>
-                    <p><b>Xuất xứ: <span th:text="${product.origin}"></span></b></p>
-                    <div class="product-info">
-                        <p class="product-date" th:text="${product.dateAdded != null ? #temporals.format(product.dateAdded, 'dd/MM/yyyy') : 'Không có'}">Ngày thêm</p>
+    <div class="cart-item" th:each="item : ${cart}">
+    <div class="item-details" style="transform: scale(0.5); transform-origin: top left;">
+    <img th:src="@{${item.product.imageUrl}}" alt="Ảnh sản phẩm">
+    <h2 th:text="${item.product.title}">Tên sản phẩm</h2>
+    <p>Giá: <span th:text="${#numbers.formatInteger(item.product.price, 0, 'POINT')} + ' VND'">0 VND</span></p>
+    <p>Số lượng: <span th:text="${item.quantity}">1</span></p>
+    <p>Thành tiền: <span th:text="${#numbers.formatInteger(item.totalPrice, 0, 'POINT')} + ' VND'">0 VND</span></p>
+</div>
 
-                        <a th:href="@{'/order/' + ${product.id}}" class="order-btn">
-                            <b>Đặt Hàng</b>
-                        </a>
-                    </div>
-                </div>
+    <form th:action="@{/customer/cart/remove}" method="post">
+        <input type="hidden" name="productId" th:value="${item.product.id}">
+        <button type="submit" class="remove-item">Xóa</button>
+    </form>
+</div>
+
+    <div class="additional-options" th:if="${not #lists.isEmpty(cart)}">
+        <a th:href="@{/customer/product-list}">
+            <button class="continue-shopping">Tiếp tục xem sản phẩm</button>
+        </a>
+        <div class="discount-code">
+            <label for="discount" style="font-size: 20px; color: red; font-weight: bold;">Mã ưu đãi:</label>
+            <input type="text" id="discount" name="discount" placeholder="Tính năng đang phát triển" disabled>
+            <button disabled>Áp dụng</button>
+        </div>
+    </div>
+
+    <div class="total" th:if="${not #lists.isEmpty(cart)}">
+        <h2>
+            Tổng cộng:
+            <span th:text="${#numbers.formatInteger(total, 0, 'POINT')} + ' VND'">0 VND</span>
+        </h2>
+        <form th:action="@{/customer/cart/checkout}" method="post">
+            <button class="checkout" type="submit">Thanh Toán</button>
+        </form>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="background-color: rgb(216, 212, 212);">
+    <div class="line" style="background-color: pink; width: 100%; height: 5px;"></div>
+    <div class="hotline">
+        <li>
+            <h3>HỖ TRỢ KHÁCH HÀNG</h3>
+            <a href="#">Hot line: <b>0397002733</b></a><br>
+            <a href="#">Các câu hỏi thường gặp</a><br>
+            <a href="#">Gửi yêu cầu hỗ trợ</a><br>
+            <a href="#">Hướng dẫn đặt hàng</a><br>
+            <a href="#">Phương thức vận chuyển</a><br>
+            <a href="#">Chính sách đổi trả</a><br>
+        </li>
+        <li>
+            <h3>VỀ CHÚNG TÔI</h3>
+            <a href="#">Giới thiệu</a><br>
+            <a href="#">Liên hệ</a><br>
+            <a href="#">Chính sách bảo mật</a><br>
+            <a href="#">Điều khoản sử dụng</a><br>
+            <a href="#">Bảo mật thông tin</a><br>
+            <a href="#">Tư vấn khách hàng</a>
+        </li>
+        <li>
+            <h3>HỢP TÁC & LIÊN KẾT</h3>
+            <a href="https://www.flowercorner.vn/">https://www.flowercorner.vn/</a><br>
+            <h3>THANH TOÁN</h3>
+            <div class="thanhtoan">
+                <a href="#"><img th:src="@{/WebMiPham/visa.png}" alt="Visa"></a>
+                <a href="#"><img th:src="@{/WebMiPham/atm-card.png}" alt="ATM"></a>
             </div>
-    </main>
-</section>
-
-<!-- Footer -->
-<form action="last" style="background-color: rgb(216, 212, 212);">
-<div class="line" style="background-color: pink; width: 100%; height: 5px;"></div>
-<div class="last-container">
-
-</div>
-<div>
-<div class="hotline">
-    
-    <li>
-        <h3>HỖ TRỢ KHÁCH HÀNG</h3><br>
-        <a href="#" style="color: #0043ff;">Hot line: <b>0397002733</b></a><br>
-        <a href="#">Các câu hỏi thường gặp</a><br>
-        <a href="#">Gửi yêu cầu hỗ trợ</a><br>
-        <a href="#">Hướng dẫn đặt hàng</a><br>
-        <a href="#">Phương thức vận chuyển</a><br>
-        <a href="#">Chính sách đổi trả</a><br>
-    </li>
-    <li class="g">
-        <h3>VỀ CHÚNG TÔI</h3><br>
-        <a href="#">Giới thiệu</a><br>
-        <a href="#">Liên hệ</a><br>
-        <a href="#">Chính sách bảo mật</a><br>
-        <a href="#">Điều khoản sử dụng</a><br>
-        <a href="#">Bảo mật thông tin </a><br>
-        <a href="#">Tư vấn khách hàng</a>
-    </li>
-    <li>
-        <h3>HỢP TÁC VÀ LIÊN KẾT</h3><br>
-        <a href="https://www.flowercorner.vn/">https://www.flowercorner.vn/</a><br>
-        <a href="#">Cẩm nang</a><br>
-        <div class="lienhe">
-
+        </li>
+        <li>
+            <h3>KHUYẾN MÃI</h3>
+            <input type="email" placeholder="Nhập email của bạn">
+            <button>Cập nhật</button>
+            <h3>KHIẾU NẠI</h3>
+            <button>0397002733</button>
+        </li>
+        <div class="ketnoi">
+            <img th:src="@{/images/facebook.png}" alt="facebook">
+            <img th:src="@{/images/instagram.png}" alt="instagram">
+            <img th:src="@{/images/gmail.png}" alt="gmail">
         </div>
-        <h3>THANH TOÁN</h3>
-        <div class="thanhtoan">
-            <a href="#"><img src="/WebMiPham/visa.png" alt=""></a>
-            <a href="#"><img src="/WebMiPham/atm-card.png" alt=""></a>
-        </div>    
-    </li>
-    <li>
-        <h3>CẬP NHẬT THÔNG TIN KHUYẾN MÃI</h3><br>  
-        <div class="last-one">
-        <input type="email" placeholder="Nhập email của bạn">
-        <button id="c">Cập nhật</button><br>
-        </div>
-        <br>    <h3>KHIẾU NẠI GÓP Ý</h3><br>
-        <button>0397002733</button><br>
-    </li>
-    <h3>KẾT NỐI</h3>
-    <div class="ketnoi">
-        <img src="images/facebook.png"  alt="facebook">
-        <img src="images/instagram.png" alt="instagram">
-        <img src="images/gmail.png" alt="gmail">
-
     </div>
-</div>
-</form>
-<script>
-var slideIndex = 0;
-showSlides();
-</script>
+</footer>
 
 </body>
 </html>

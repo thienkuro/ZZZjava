@@ -2,93 +2,199 @@
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Danh sách sản phẩm</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GYMSHOP - Thiết bị tập luyện</title>
+    <link rel="icon" href="/images/logo.png" th:href="@{/images/logo.png}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        th, td {
-            padding: 8px;
-            border: 1px solid #ccc;
-            text-align: left;
-        }
-
-        img {
-            height: 80px;
-        }
-
-        .actions a {
-            margin: 0 5px;
-            text-decoration: none;
-            color: blue;
-        }
-
-        .add-btn {
-            margin-top: 10px;
-            display: inline-block;
-            padding: 6px 10px;
-            background-color: green;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-        }
-
-        .badge {
-            background-color: orange;
-            color: white;
-            padding: 2px 6px;
-            border-radius: 4px;
+        .center-text {
+            text-align: center;
         }
     </style>
 </head>
 <body>
+    <div id="cart-success-message" style="display:none; text-align:center; color: green; font-weight: bold;">
+    <h1>Đã thêm sản phẩm vào giỏ hàng!</h1>
+</div>
 
-<h2>Danh sách sản phẩm tập gym</h2>
+</div>
 
-<table>
-    <thead>
-        <tr>
-            <th scope="col">Ảnh</th>
-            <th scope="col">Tên sản phẩm</th>
-            <th scope="col">Giá</th>
-            <th scope="col">Danh mục</th>
-            <th scope="col">Xuất xứ</th>
-            <th scope="col">Đã bán</th>
-            <th scope="col">Ngày thêm</th>
-            <th scope="col">Badge</th>
-            <th scope="col">Hành động</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr th:each="product : ${products}">
-            <td>
-                <img th:src="${product.imageUrl} != null ? @{/${product.imageUrl}} : @{/images/no-image.png}" src="/images/no-image.png" alt="Ảnh sản phẩm">
-            </td>
-            <td th:text="${product.title}"></td>
-            <td th:text="${#numbers.formatInteger(product.price, 0, 'POINT')} + ' ₫'"></td>
-            <td th:text="${product.category}"></td>
-            <td th:text="${product.origin}"></td>
-            <td th:text="${product.sold}"></td>
-            <td th:text="${product.dateAdded}"></td>
-            <td>
-                <span th:if="${product.badge}" class="badge" th:text="${product.badge}"></span>
-            </td>
-            <td class="actions">
-                <a th:href="@{/products/edit/{id}(id=${product.id})}">✏️ Sửa</a>
-                <a th:href="@{/products/delete/{id}(id=${product.id})}"
-                onclick="return confirm('Xác nhận xóa sản phẩm này?')">🗑️ Xóa</a>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<header>
+    <div class="header-1">
+        <div class="share">
+            <span>Subscribe to our :</span>
+            <a href="#" class="fab fa-facebook" title="Facebook"><span class="visually-hidden">Facebook</span></a>
+            <a href="#" class="fab fa-google" title="Google"><span class="visually-hidden">Google</span></a>
+            <a href="#" class="fab fa-instagram" title="Instagram"><span class="visually-hidden">Instagram</span></a>
+            <a href="#" class="fab fa-tiktok" title="TikTok"><span class="visually-hidden">TikTok</span>
+            </a>
+        </div>
+    </div>
 
-<a class="add-btn" th:href="@{/products/add}">+ Thêm sản phẩm</a>
+    <div class="header-2">
+        <img src=""
+            title="Gymshop.vn- Shop đồ tập GYM" alt="Gymshop.vn- Shop đồ tập GYM" class="img-fluid" width="300"
+            height="62">
+        <form action="#" class="search-bar-container">
+            <input type="search" id="search-bar" placeholder="Tìm kiếm...">
+            <label for="search-bar" class="fas fa-search"></label>
+            <button type="submit" style="display:none;"></button>
+        </form>
+    </div>
 
+    <div class="header-3">
+        <div id="menu-bar" class="fas fa-bars"></div>
+        <nav class="navbar navbar-margin-left-auto">
+            <a th:href="@{/customer/product-list}">Trang chủ</a>
+            <div class="dropdown">
+                <a href="#" class="dropbtn">Danh mục <span class="fas fa-chevron-down"></span></a>
+                <div class="dropdown-content">
+                    <a href="#">Tất cả</a>
+                    <a href="#">Dụng cụ tập tạ</a>
+                    <a href="#">Máy tập Cardio</a>
+                    <a href="#">Dụng cụ tập toàn thân</a>
+                    <a href="#">Phụ kiện tập luyện</a>
+                    <a href="#">Dụng cụ hỗ trợ phục hồi</a>
+                    <a href="#">Thực phẩm bổ sung</a>
+                    <a href="#">Dụng cụ đo lường sức khỏe</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="dropbtn">Sắp xếp theo giá <span class="fas fa-chevron-down"></span></a>
+                <div class="dropdown-content">
+                    <a href="#">Giá thấp đến cao</a>
+                    <a href="#">Giá cao đến thấp</a>
+                </div>
+            </div>
+            <a href="#contact">Liên hệ <span class="fas fa-phone"></span></a>
+        </nav>
+
+        <div class="icons">
+            <a th:href="@{/customer/cart}" class="fas fa-shopping-cart" title="Giỏ hàng"></a>
+            <a th:href="@{/vitri}" class="fas fa-store location"></a>
+            <div class="dropdown">
+                <a href="#" class="fas fa-user-circle" title="Tài khoản" onclick="toggleDropdown()"></a>
+                <div id="dropdownContent" class="dropdown-content">
+                    <span th:if="${username != null}">
+                        <span style="padding: 10px; display: block;">Xin chào, <b th:text="${username}">Username</b></span>
+                        <a th:href="@{/logout}">Đăng xuất</a>
+                    </span>
+                    <span th:unless="${username != null}">
+                        <a th:href="@{/customer/login}">Đăng nhập</a>
+                        <a th:href="@{/customer/register}">Đăng ký</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+</div>
+
+</header>
+    <div class="center-text">
+    <h1>GYMSHOP - Dụng cụ tập GYM</h1>
+    </div>
+
+<section class="category" id="category">
+    <main>
+            <div class="products">
+                <div class="product" th:each="product : ${products}">
+                    <td>
+                        <img src="/images/no-image.png"
+                            th:if="${product.imageUrl != null}" 
+                            th:src="@{'/' + ${product.imageUrl}}" 
+                            alt="Ảnh sản phẩm" height="80">
+                    </td>
+                    <h3 th:text="${product.title != null && !#strings.isEmpty(product.title) ? product.title : 'Không có tên sản phẩm'}">Không có tên sản phẩm</h3>
+                    <p><i th:text="${product.category}"></i></p>
+                    <p><b>Giá: <span th:text="${product.price} + ' VND'"></span></b></p>
+                    <p><b>Đã bán: <span th:text="${product.sold}"></span></b></p>
+                    <p><b>Xuất xứ: <span th:text="${product.origin}"></span></b></p>
+                    <div class="product-info">
+                        <p class="product-date" th:text="${product.dateAdded != null ? #temporals.format(product.dateAdded, 'dd/MM/yyyy') : 'Không có'}">Ngày thêm</p>
+
+                        <form onsubmit="addToCart(event, this)">
+                        <input type="hidden" name="productId" th:value="${product.id}">
+                        <input type="number" name="quantity" value="1" min="1" style="width: 50px;">
+                        <button type="submit" class="order-btn">Thêm vào giỏ</button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+    </main>
+</section>
+
+<!-- Footer -->
+<!-- Footer -->
+<div style="background-color: rgb(216, 212, 212);">
+    <div class="line" style="background-color: pink; width: 100%; height: 5px;"></div>
+    <div class="last-container">
+        <div class="hotline">
+            <li>
+                <h3>HỖ TRỢ KHÁCH HÀNG</h3><br>
+                <a href="#" style="color: #0043ff;">Hot line: <b>0397002733</b></a><br>
+                <a href="#">Các câu hỏi thường gặp</a><br>
+                <a href="#">Gửi yêu cầu hỗ trợ</a><br>
+                <a href="#">Hướng dẫn đặt hàng</a><br>
+                <a href="#">Phương thức vận chuyển</a><br>
+                <a href="#">Chính sách đổi trả</a><br>
+            </li>
+            <li class="g">
+                <h3>VỀ CHÚNG TÔI</h3><br>
+                <a href="#">Giới thiệu</a><br>
+                <a href="#">Liên hệ</a><br>
+                <a href="#">Chính sách bảo mật</a><br>
+                <a href="#">Điều khoản sử dụng</a><br>
+                <a href="#">Bảo mật thông tin</a><br>
+                <a href="#">Tư vấn khách hàng</a>
+            </li>
+            <li>
+                <h3>HỢP TÁC VÀ LIÊN KẾT</h3><br>
+                <a href="https://www.flowercorner.vn/">https://www.flowercorner.vn/</a><br>
+                <a href="#">Cẩm nang</a><br>
+                <div class="lienhe"></div>
+                <h3>THANH TOÁN</h3>
+                <div class="thanhtoan">
+                    <a href="#"><img src="/WebMiPham/visa.png" alt=""></a>
+                    <a href="#"><img src="/WebMiPham/atm-card.png" alt=""></a>
+                </div>    
+            </li>
+            <li>
+                <h3>CẬP NHẬT THÔNG TIN KHUYẾN MÃI</h3><br>  
+                <div class="last-one">
+                    <input type="email" placeholder="Nhập email của bạn">
+                    <button id="c">Cập nhật</button><br>
+                </div>
+                <br>    
+                <h3>KHIẾU NẠI GÓP Ý</h3><br>
+                <button>0397002733</button><br>
+            </li>
+        </div>
+        <h3>KẾT NỐI</h3>
+        <div class="ketnoi">
+            <img src="images/facebook.png" alt="facebook">
+            <img src="images/instagram.png" alt="instagram">
+            <img src="images/gmail.png" alt="gmail">
+        </div>
+    </div>
+</div>
+
+<script>
+    function addToCart(event, form) {
+        event.preventDefault(); // Không reload
+        const formData = new FormData(form);
+
+        fetch('/customer/cart/add', {
+            method: 'POST',
+            body: formData
+        }).then(response => {
+            if (response.ok) {
+                // Hiển thị thông báo
+                const msg = document.getElementById('cart-success-message');
+                msg.style.display = 'block';
+                setTimeout(() => msg.style.display = 'none', 3000); // Tự ẩn sau 3s
+            }
+        });
+    }
+</script>
 </body>
 </html>

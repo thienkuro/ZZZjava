@@ -101,7 +101,7 @@
                 <p><b>Xuất xứ: <span th:text="${product.origin}"></span></b></p>
                 <div class="product-info">
                     <p class="product-date" th:text="${product.dateAdded != null ? #temporals.format(product.dateAdded, 'dd/MM/yyyy') : 'Không có'}">Ngày thêm</p>
-                    <a th:href="@{'/order/' + ${product.id}}" class="order-btn"><b>Đặt Hàng</b></a>
+                    <a class="order-btn"><b>Đặt Hàng</b></a>
                 </div>
             </div>
         </div>
