@@ -46,4 +46,36 @@ public class ProductServiceImpl implements ProductService {
         productRepository.deleteById(id);
     }
 
+    @Override
+    public List<Product> getAllProducts() {
+        log.info("Lấy tất cả sản phẩm (getAllProducts)");
+        return productRepository.findAll();
+    }
+
+    @Override
+    public List<Product> searchByTitle(String keyword) {
+        log.info("Tìm sản phẩm theo từ khóa: {}", keyword);
+        return productRepository.findByTitleContainingIgnoreCase(keyword);
+    }
+
+    @Override
+    public List<Product> findByCategory(String category) {
+        return productRepository.findByCategory(category);
+    }
+
+    @Override
+    public List<Product> searchByTitleAndCategory(String title, String category) {
+        return productRepository.findByTitleContainingIgnoreCaseAndCategory(title, category);
+    }
+
+    @Override
+    public List<Product> findAllOrderByPriceAsc() {
+        return productRepository.findAllByOrderByPriceAsc();
+    }
+
+    @Override
+    public List<Product> findAllOrderByPriceDesc() {
+        return productRepository.findAllByOrderByPriceDesc();
+    }
+
 }

@@ -162,32 +162,6 @@
     </div>
 </header>
 
-<!-- Slideshow -->
-<div class="slideshow-container">
-    <div class="mySlides fade">
-        <img src="/images/may-chay-bo.jpg"
-            th:src="@{/images/may-chay-bo.jpg}"
-            alt="Máy chạy bộ"
-            title="Máy chạy bộ">
-    </div>
-    <div class="mySlides fade">
-        <img src="/images/ta-dia-5kg.jpg"
-            th:src="@{/images/ta-dia-5kg.jpg}"
-            alt="Tạ đĩa 5kg"
-            title="Tạ đĩa 5kg">
-    </div>
-    <div class="mySlides fade">
-        <img src="/images/xe-dap-tap.jpg"
-            th:src="@{/images/xe-dap-tap.jpg}"
-            alt="Xe đạp tập"
-            title="Xe đạp tập">
-    </div>
-    <div class="mySlides fade">
-        <img src="/images/photo-quaint-vintage-flower-shop-floral-arrangements-backdrop_1060272-55347.avif"
-            alt="Cửa hàng hoa cổ điển"
-            title="Cửa hàng hoa cổ điển">
-    </div>
-</div>
     <div class="center-text">
     <h1>GYMSHOP - Dụng cụ tập GYM</h1>
     </div>
@@ -260,59 +234,65 @@
 
 
 <!-- Footer -->
-<form action="last" style="background-color: rgb(216, 212, 212);">
-<div class="line" style="background-color: pink; width: 100%; height: 5px;"></div>
-<div class="last-container">
-
-</div>
-<div>
-<div class="hotline">
-    
-    <li>
-        <h3>HỖ TRỢ KHÁCH HÀNG</h3><br>
-        <a href="#" style="color: #0043ff;">Hot line: <b>0397002733</b></a><br>
-        <a href="#">Các câu hỏi thường gặp</a><br>
-        <a href="#">Gửi yêu cầu hỗ trợ</a><br>
-        <a href="#">Hướng dẫn đặt hàng</a><br>
-        <a href="#">Phương thức vận chuyển</a><br>
-        <a href="#">Chính sách đổi trả</a><br>
-    </li>
-    <li class="g">
-        <h3>VỀ CHÚNG TÔI</h3><br>
-        <a href="#">Giới thiệu</a><br>
-        <a href="#">Liên hệ</a><br>
-        <a href="#">Chính sách bảo mật</a><br>
-        <a href="#">Điều khoản sử dụng</a><br>
-        <a href="#">Bảo mật thông tin </a><br>
-        <a href="#">Tư vấn khách hàng</a>
-    </li>
-    <li>
-        <h3>HỢP TÁC VÀ LIÊN KẾT</h3><br>
-        <a href="https://www.flowercorner.vn/">https://www.flowercorner.vn/</a><br>
-        <a href="#">Cẩm nang</a><br>
-        <div class="lienhe">
-
+<div style="background-color: rgb(216, 212, 212);">
+    <div class="line" style="background-color: pink; width: 100%; height: 5px;"></div>
+    <div class="last-container">
+        <div class="hotline">
+            <li>
+                <h3>HỖ TRỢ KHÁCH HÀNG</h3><br>
+                <a href="#" style="color: #0043ff;">Hot line: <b>0925273723</b></a><br>
+                <a href="#">Các câu hỏi thường gặp</a><br>
+                <a href="#">Gửi yêu cầu hỗ trợ</a><br>
+                <a href="#">Hướng dẫn đặt hàng</a><br>
+                <a href="#">Phương thức vận chuyển</a><br>
+                <a href="#">Chính sách đổi trả</a><br>
+            </li>
+            <li class="g">
+                <h3>VỀ CHÚNG TÔI</h3><br>
+                <a href="#">Giới thiệu</a><br>
+                <a href="#">Liên hệ</a><br>
+                <a href="#">Chính sách bảo mật</a><br>
+                <a href="#">Điều khoản sử dụng</a><br>
+                <a href="#">Bảo mật thông tin</a><br>
+                <a href="#">Tư vấn khách hàng</a>
+            </li>
+            <li>
+                <h3>CẬP NHẬT THÔNG TIN KHUYẾN MÃI</h3><br>
+                <div class="last-one">
+                    <input type="email" placeholder="Nhập email của bạn">
+                    <button id="c">Cập nhật</button><br>
+                </div>
+                <br>    
+                <h3>KHIẾU NẠI GÓP Ý</h3><br>
+                <button>0925273723</button><br>
+            </li>
         </div>
-        <h3>THANH TOÁN</h3>
-        <div class="thanhtoan">
-            <a href="#"><img src="/WebMiPham/visa.png" alt=""></a>
-            <a href="#"><img src="/WebMiPham/atm-card.png" alt=""></a>
-        </div>    
-    </li>
-    <li>
-        <h3>CẬP NHẬT THÔNG TIN KHUYẾN MÃI</h3><br>  
-        <div class="last-one">
-        <input type="email" placeholder="Nhập email của bạn">
-        <button id="c">Cập nhật</button><br>
+        <h3>KẾT NỐI</h3>
+        <div class="ketnoi">
+            <img th:src="@{/images/facebook.jpg}" alt="facebook">
+            <img th:src="@{/images/instagram.jpg}" alt="instagram">
+            <img th:src="@{/images/gmail.jpg}" alt="gmail">
         </div>
-        <br>    <h3>KHIẾU NẠI GÓP Ý</h3><br>
-        <button>0397002733</button><br>
-    </li>
+    </div>
 </div>
-</form>
+
 <script>
-var slideIndex = 0;
-showSlides();
+    function addToCart(event, form) {
+        event.preventDefault(); // Không reload
+        const formData = new FormData(form);
+
+        fetch('/customer/cart/add', {
+            method: 'POST',
+            body: formData
+        }).then(response => {
+            if (response.ok) {
+                // Hiển thị thông báo
+                const msg = document.getElementById('cart-success-message');
+                msg.style.display = 'block';
+                setTimeout(() => msg.style.display = 'none', 3000); // Tự ẩn sau 3s
+            }
+        });
+    }
 </script>
 
 </body>

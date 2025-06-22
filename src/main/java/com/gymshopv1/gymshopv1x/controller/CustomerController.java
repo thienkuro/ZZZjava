@@ -25,63 +25,69 @@ public class CustomerController {
     @Autowired
     private UserService userService;
 
-    // ========== TRANG CHỦ ==========
+    // ======= TRANG CHỦ =======
     @GetMapping("/home")
     public String showHomePage(Model model, HttpSession session) {
         List<Product> products = productService.findAll();
         model.addAttribute("products", products);
 
-        User loggedInUser = (User) session.getAttribute("loggedInUser");
-        if (loggedInUser != null) {
-            model.addAttribute("username", loggedInUser.getUsername());
+        User user = (User) session.getAttribute("loggedInUser");
+        if (user != null) {
+            model.addAttribute("username", user.getUsername()); // để hiện tên tài khoản
         }
 
         return "customer/home";
     }
 
-    // ========== FORM ĐĂNG NHẬP ==========
+    // ======= FORM ĐĂNG NHẬP =======
     @GetMapping("/login")
     public String showLoginForm(Model model) {
         return "customer/login";
     }
 
-    // ========== XỬ LÝ ĐĂNG NHẬP ==========
+    // ======= XỬ LÝ ĐĂNG NHẬP =======
     @PostMapping("/login")
-    public String login(@RequestParam("username") String username,
+    public String login(@RequestParam("email") String email,
             @RequestParam("password") String password,
             HttpSession session,
             Model model) {
 
-        Optional<User> userOptional = userService.findByUsername(username);
+        Optional<User> userOptional = userService.findByEmail(email);
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            // So sánh mật khẩu dạng plain-text
             if (user.getPassword().equals(password)) {
                 session.setAttribute("loggedInUser", user);
-                return "redirect:/customer/home";
+
+                // Điều hướng theo vai trò
+                if (Boolean.TRUE.equals(user.getAdmin())) {
+                    return "redirect:/admin/dashboard";
+                } else {
+                    return "redirect:/customer/product-list";
+                }
             }
         }
 
-        model.addAttribute("error", "Sai tên đăng nhập hoặc mật khẩu");
+        // Trường hợp sai
+        model.addAttribute("error", "Sai email hoặc mật khẩu");
         return "customer/login";
     }
 
-    // ========== ĐĂNG XUẤT ==========
+    // ======= ĐĂNG XUẤT =======
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/customer/home";
     }
 
-    // ========== FORM ĐĂNG KÝ ==========
+    // ======= FORM ĐĂNG KÝ =======
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
         model.addAttribute("user", new User());
         return "customer/register";
     }
 
-    // ========== XỬ LÝ ĐĂNG KÝ ==========
+    // ======= XỬ LÝ ĐĂNG KÝ =======
     @PostMapping("/register")
     public String processRegister(@ModelAttribute("user") User user,
             RedirectAttributes redirectAttributes,
@@ -92,7 +98,7 @@ public class CustomerController {
             redirectAttributes.addFlashAttribute("successMessage", "Đăng ký thành công!");
             return "redirect:/customer/home";
         } else {
-            model.addAttribute("errorMessage", "Tên đăng nhập hoặc email đã tồn tại!");
+            model.addAttribute("errorMessage", "Email hoặc tên đăng nhập đã tồn tại!");
             return "customer/register";
         }
     }

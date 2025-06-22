@@ -21,25 +21,16 @@ public class AdminController {
         return "admin/dashboard";
     }
 
-    @GetMapping("/admin/manage-products")
-    public String manageProducts(HttpSession session) {
-        User user = (User) session.getAttribute("loggedInUser");
-        if (!RoleChecker.isAdmin(user)) {
-            return "redirect:/customer/home";
-        }
-
-        return "admin/manage-products";
-    }
-
     @GetMapping("/admin/manage-users")
     public String manageUsers(HttpSession session) {
         User user = (User) session.getAttribute("loggedInUser");
         if (!RoleChecker.isAdmin(user)) {
             return "redirect:/customer/home";
         }
-    
+
         return "admin/manage-users";
     }
+
     @GetMapping("/admin/manage-orders")
     public String manageOrders(HttpSession session) {
         User user = (User) session.getAttribute("loggedInUser");

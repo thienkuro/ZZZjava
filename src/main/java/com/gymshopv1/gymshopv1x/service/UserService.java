@@ -6,5 +6,5 @@ import com.gymshopv1.gymshopv1x.entity.User;
 
 public interface UserService {
     boolean register(User user);
-    Optional<User> findByUsername(String username);
+    Optional<User> findByEmail(String email);
 }

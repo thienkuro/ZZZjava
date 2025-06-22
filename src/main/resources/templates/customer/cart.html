@@ -12,24 +12,28 @@
 
 <!-- HEADER -->
 <header>
-    <div class="header-1">
+<div class="header-1">
         <div class="share">
-            <span>Subscribe to our florist :</span>
-            <a href="#" class="fab fa-facebook"></a>
-            <a href="#" class="fab fa-google"></a>
-            <a href="#" class="fab fa-instagram"></a>
-            <a href="#" class="fab fa-tiktok"></a>
+            <span>Subscribe to our :</span>
+            <a href="#" class="fab fa-facebook" title="Facebook"><span class="visually-hidden">Facebook</span></a>
+            <a href="#" class="fab fa-google" title="Google"><span class="visually-hidden">Google</span></a>
+            <a href="#" class="fab fa-instagram" title="Instagram"><span class="visually-hidden">Instagram</span></a>
+            <a href="#" class="fab fa-tiktok" title="TikTok"><span class="visually-hidden">TikTok</span>
+            </a>
         </div>
     </div>
-    <div class="header-2"> 
-        <img src="https://www.flowercorner.vn/image/catalog/common/shop-hoa-tuoi-flowercorner-logo.png.webp"
-            title="FlowerCorner.vn - Shop hoa tươi" alt="FlowerCorner.vn - Shop hoa tươi"
-            class="img-fluid" width="300" height="62">
-        <form action="#" class="search-bar-container">
-            <input type="search" id="search-bar" placeholder="Tìm kiếm...">
-            <label for="search-bar" class="fas fa-search"></label>
+
+    <div class="header-2">
+        <h1>Gymshop.vn- Shop đồ tập GYM</h1>
+        <form th:action="@{/customer/product-list}" method="get" class="search-bar-container">
+            <input type="search" id="search-bar" name="keyword" placeholder="Tìm kiếm..." 
+                th:value="${keyword}">
+            <input type="hidden" name="category" th:value="${category}">
+            <label for="search-bar" class="fas fa-search" onclick="this.closest('form').submit()" style="cursor: pointer;"></label>
+            <button type="submit" style="display: none;"></button>
         </form>
     </div>
+
     <div class="header-3">
         <div id="menu-bar" class="fas fa-bars"></div>
         <nav class="navbar navbar-margin-left-auto">
@@ -37,15 +41,16 @@
             <div class="dropdown">
                 <a href="#" class="dropbtn">Danh mục <span class="fas fa-chevron-down"></span></a>
                 <div class="dropdown-content">
-                    <a href="#">Tất cả</a>
-                    <a href="#">Dụng cụ tập tạ</a>
-                    <a href="#">Máy tập Cardio</a>
-                    <a href="#">Dụng cụ tập toàn thân</a>
-                    <a href="#">Phụ kiện tập luyện</a>
-                    <a href="#">Dụng cụ hỗ trợ phục hồi</a>
-                    <a href="#">Thực phẩm bổ sung</a>
-                    <a href="#">Dụng cụ đo lường sức khỏe</a>
+                    <a th:href="@{/customer/product-list}">Tất cả</a>
+                    <a th:href="@{/customer/product-list(category='Dụng cụ tập tạ')}">Dụng cụ tập tạ</a>
+                    <a th:href="@{/customer/product-list(category='Máy tập Cardio')}">Máy tập Cardio</a>
+                    <a th:href="@{/customer/product-list(category='Dụng cụ tập toàn thân')}">Dụng cụ tập toàn thân</a>
+                    <a th:href="@{/customer/product-list(category='Phụ kiện tập luyện')}">Phụ kiện tập luyện</a>
+                    <a th:href="@{/customer/product-list(category='Dụng cụ hỗ trợ phục hồi')}">Dụng cụ hỗ trợ phục hồi</a>
+                    <a th:href="@{/customer/product-list(category='Thực phẩm bổ sung')}">Thực phẩm bổ sung</a>
+                    <a th:href="@{/customer/product-list(category='Dụng cụ đo lường sức khỏe')}">Dụng cụ đo lường sức khỏe</a>
                 </div>
+
             </div>
             <div class="dropdown">
                 <a href="#" class="dropbtn">Sắp xếp theo giá <span class="fas fa-chevron-down"></span></a>
@@ -92,7 +97,7 @@
 
     <div class="cart-item" th:each="item : ${cart}">
     <div class="item-details" style="transform: scale(0.5); transform-origin: top left;">
-    <img th:src="@{${item.product.imageUrl}}" alt="Ảnh sản phẩm">
+    <img th:src="@{/${item.product.imageUrl}}" alt="Ảnh sản phẩm">
     <h2 th:text="${item.product.title}">Tên sản phẩm</h2>
     <p>Giá: <span th:text="${#numbers.formatInteger(item.product.price, 0, 'POINT')} + ' VND'">0 VND</span></p>
     <p>Số lượng: <span th:text="${item.quantity}">1</span></p>
@@ -110,7 +115,7 @@
             <button class="continue-shopping">Tiếp tục xem sản phẩm</button>
         </a>
         <div class="discount-code">
-            <label for="discount" style="font-size: 20px; color: red; font-weight: bold;">Mã ưu đãi:</label>
+            <label for="discount" type="text" style="font-size: 20px; color: red; font-weight: bold;">Mã ưu đãi:</label>
             <input type="text" id="discount" name="discount" placeholder="Tính năng đang phát triển" disabled>
             <button disabled>Áp dụng</button>
         </div>
@@ -127,51 +132,65 @@
     </div>
 </div>
 
-<!-- FOOTER -->
-<footer style="background-color: rgb(216, 212, 212);">
+<div style="background-color: rgb(216, 212, 212);">
     <div class="line" style="background-color: pink; width: 100%; height: 5px;"></div>
-    <div class="hotline">
-        <li>
-            <h3>HỖ TRỢ KHÁCH HÀNG</h3>
-            <a href="#">Hot line: <b>0397002733</b></a><br>
-            <a href="#">Các câu hỏi thường gặp</a><br>
-            <a href="#">Gửi yêu cầu hỗ trợ</a><br>
-            <a href="#">Hướng dẫn đặt hàng</a><br>
-            <a href="#">Phương thức vận chuyển</a><br>
-            <a href="#">Chính sách đổi trả</a><br>
-        </li>
-        <li>
-            <h3>VỀ CHÚNG TÔI</h3>
-            <a href="#">Giới thiệu</a><br>
-            <a href="#">Liên hệ</a><br>
-            <a href="#">Chính sách bảo mật</a><br>
-            <a href="#">Điều khoản sử dụng</a><br>
-            <a href="#">Bảo mật thông tin</a><br>
-            <a href="#">Tư vấn khách hàng</a>
-        </li>
-        <li>
-            <h3>HỢP TÁC & LIÊN KẾT</h3>
-            <a href="https://www.flowercorner.vn/">https://www.flowercorner.vn/</a><br>
-            <h3>THANH TOÁN</h3>
-            <div class="thanhtoan">
-                <a href="#"><img th:src="@{/WebMiPham/visa.png}" alt="Visa"></a>
-                <a href="#"><img th:src="@{/WebMiPham/atm-card.png}" alt="ATM"></a>
-            </div>
-        </li>
-        <li>
-            <h3>KHUYẾN MÃI</h3>
-            <input type="email" placeholder="Nhập email của bạn">
-            <button>Cập nhật</button>
-            <h3>KHIẾU NẠI</h3>
-            <button>0397002733</button>
-        </li>
+    <div class="last-container">
+        <div class="hotline">
+            <li>
+                <h3>HỖ TRỢ KHÁCH HÀNG</h3><br>
+                <a href="#" style="color: #0043ff;">Hot line: <b>0925273723</b></a><br>
+                <a href="#">Các câu hỏi thường gặp</a><br>
+                <a href="#">Gửi yêu cầu hỗ trợ</a><br>
+                <a href="#">Hướng dẫn đặt hàng</a><br>
+                <a href="#">Phương thức vận chuyển</a><br>
+                <a href="#">Chính sách đổi trả</a><br>
+            </li>
+            <li class="g">
+                <h3>VỀ CHÚNG TÔI</h3><br>
+                <a href="#">Giới thiệu</a><br>
+                <a href="#">Liên hệ</a><br>
+                <a href="#">Chính sách bảo mật</a><br>
+                <a href="#">Điều khoản sử dụng</a><br>
+                <a href="#">Bảo mật thông tin</a><br>
+                <a href="#">Tư vấn khách hàng</a>
+            </li>
+            <li>
+                <h3>CẬP NHẬT THÔNG TIN KHUYẾN MÃI</h3><br>
+                <div class="last-one">
+                    <input type="email" placeholder="Nhập email của bạn">
+                    <button id="c">Cập nhật</button><br>
+                </div>
+                <br>    
+                <h3>KHIẾU NẠI GÓP Ý</h3><br>
+                <button>0925273723</button><br>
+            </li>
+        </div>
+        <h3>KẾT NỐI</h3>
         <div class="ketnoi">
-            <img th:src="@{/images/facebook.png}" alt="facebook">
-            <img th:src="@{/images/instagram.png}" alt="instagram">
-            <img th:src="@{/images/gmail.png}" alt="gmail">
+            <img th:src="@{/images/facebook.jpg}" alt="facebook">
+            <img th:src="@{/images/instagram.jpg}" alt="instagram">
+            <img th:src="@{/images/gmail.jpg}" alt="gmail">
         </div>
     </div>
-</footer>
+</div>
 
+<script>
+    function addToCart(event, form) {
+        event.preventDefault(); // Không reload
+        const formData = new FormData(form);
+
+        fetch('/customer/cart/add', {
+            method: 'POST',
+            body: formData
+        }).then(response => {
+            if (response.ok) {
+                // Hiển thị thông báo
+                const msg = document.getElementById('cart-success-message');
+                msg.style.display = 'block';
+                setTimeout(() => msg.style.display = 'none', 3000); // Tự ẩn sau 3s
+            }
+        });
+    }
+</script>
 </body>
 </html>
