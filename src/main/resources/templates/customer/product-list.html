@@ -31,7 +31,7 @@
     </div>
 
     <div class="header-2">
-        <h1>Gymshop.vn- Shop đồ tập GYM</h1>
+        <h1 style="text-transform: none;">Gymshop.vn- Shop đồ tập GYM</h1>
         <form th:action="@{/filter(view='list')}" method="get" class="search-bar-container">
             <input type="search" id="search-bar" name="keyword" placeholder="Tìm kiếm..." 
                 th:value="${keyword}">
@@ -45,47 +45,80 @@
         <div id="menu-bar" class="fas fa-bars"></div>
         <nav class="navbar navbar-margin-left-auto">
             <a th:href="@{/customer/product-list}">Trang chủ</a>
+            <!-- DANH MỤC -->
             <div class="dropdown">
                 <a href="#" class="dropbtn">Danh mục <span class="fas fa-chevron-down"></span></a>
                 <div class="dropdown-content">
                     <a th:href="@{/filter(view='product-list')}">Tất cả</a>
-                    <a th:href="@{/filter(category='Dụng cụ tập tạ', view='product-list')}">Dụng cụ tập tạ</a>
-                    <a th:href="@{/filter(category='Máy tập Cardio', view='product-list')}">Máy tập Cardio</a>
-                    <a th:href="@{/filter(category='Dụng cụ tập toàn thân', view='product-list')}">Dụng cụ tập toàn thân</a>
-                    <a th:href="@{/filter(category='Phụ kiện tập luyện', view='product-list')}">Phụ kiện tập luyện</a>
-                    <a th:href="@{/filter(category='Dụng cụ hỗ trợ phục hồi', view='product-list')}">Dụng cụ hỗ trợ phục hồi</a>
-                    <a th:href="@{/filter(category='Thực phẩm bổ sung', view='product-list')}">Thực phẩm bổ sung</a>
-                    <a th:href="@{/filter(category='Dụng cụ đo lường sức khỏe', view='product-list')}">Dụng cụ đo lường sức khỏe</a>
+                    <a th:href="@{/filter(category='dungcutapta', keyword=${keyword}, sortPrice=${sortPrice}, view='product-list')}">Dụng cụ tập tạ</a>
+                    <a th:href="@{/filter(category='maytapcardio', keyword=${keyword}, sortPrice=${sortPrice}, view='product-list')}">Máy tập Cardio</a>
+                    <a th:href="@{/filter(category='Ddungcutaptoanthan', keyword=${keyword}, sortPrice=${sortPrice}, view='product-list')}">Dụng cụ tập toàn thân</a>
+                    <a th:href="@{/filter(category='phukientapluyen', keyword=${keyword}, sortPrice=${sortPrice}, view='product-list')}">Phụ kiện tập luyện</a>
+                    <a th:href="@{/filter(category='dungcuhotrophuchoi', keyword=${keyword}, sortPrice=${sortPrice}, view='product-list')}">Dụng cụ hỗ trợ phục hồi</a>
+                    <a th:href="@{/filter(category='thucphambosung', keyword=${keyword}, sortPrice=${sortPrice}, view='product-list')}">Thực phẩm bổ sung</a>
+                    <a th:href="@{/filter(category='dungcudoluongsuckhoe', keyword=${keyword}, sortPrice=${sortPrice}, view='product-list')}">Dụng cụ đo lường sức khỏe</a>
                 </div>
-
-
             </div>
+
+            <!-- SẮP XẾP -->
             <div class="dropdown">
                 <a href="#" class="dropbtn">Sắp xếp theo giá <span class="fas fa-chevron-down"></span></a>
                 <div class="dropdown-content">
-                    <a th:href="@{/filter(sortPrice='asc', view='product-list')}">Giá thấp đến cao</a>
-                    <a th:href="@{/filter(sortPrice='desc', view='product-list')}">Giá cao đến thấp</a>
+                    <a th:href="@{/filter(category=${category}, keyword=${keyword}, sortPrice='asc', view='product-list')}">Giá thấp đến cao</a>
+                    <a th:href="@{/filter(category=${category}, keyword=${keyword}, sortPrice='desc', view='product-list')}">Giá cao đến thấp</a>
                 </div>
             </div>
 
-            <a href="#contact">Liên hệ <span class="fas fa-phone"></span></a>
+
+            <div class="dropdown" style="position: relative;">
+                <a href="#contact" class="dropbtn">Liên hệ <span class="fas fa-phone"></span></a>
+                <div class="dropdown-content" style="
+                    display: none;
+                    position: absolute;
+                    background-color: #000;
+                    color: #fff;
+                    padding: 8px 12px;
+                    border-radius: 4px;
+                    top: 100%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    white-space: nowrap;">
+                    <h2 style="text-transform: none;">
+                        Số điện thoại: 0925273723<br>
+                    </h2>
+                    <h2 style="text-transform: none;">
+                        Email: thienlv.24ce@vku.udn.vn
+                    </h2>
+                </div>
+            </div>
         </nav>
 
         <div class="icons">
             <a th:href="@{/customer/cart}" class="fas fa-shopping-cart" title="Giỏ hàng"></a>
-            <a th:href="@{/vitri}" class="fas fa-store location"></a>
-            <div class="dropdown">
-                <a href="@{/customer/profile}" class="fas fa-user-circle" title="Tài khoản"></a>
-                <div class="account-dropdown">
-                    <div th:if="${username != null}">
-                        <div>
-                        <span><i class="fa fa-user"></i>
-                            <span th:text="${username}">Tên người dùng</span>
-                        </span>
-                        <ul>
-                            <li><a th:href="@{/customer/logout}">Đăng xuất</a></li>
-                        </ul>
-                    </div>
+            <div class="dropdown" style="position: relative; display: inline-block; cursor: pointer;">
+                <span class="dropbtn" style="display: flex; align-items: center; font-size: 16px; padding: 8px; color: #333;">
+                    <i class="fa fa-user" style="margin-right: 5px;"></i>
+                    <span th:if="${username != null}">
+                        Xin chào, <b th:text="${username}">Người dùng</b>
+                    </span>
+                    <span th:if="${username == null}">
+                        Tài khoản
+                    </span>
+                </span>
+
+                <div class="dropdown-content" style="
+                    display: none;
+                    position: absolute;
+                    background-color: #fff;
+                    min-width: 160px;
+                    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+                    z-index: 1;">
+                    <a th:href="@{/customer/logout}" style="
+                        color: black;
+                        padding: 12px 16px;
+                        text-decoration: none;
+                        display: block;
+                    ">Đăng xuất</a>
                 </div>
             </div>
         </div>
@@ -184,6 +217,17 @@
             }
         });
     }
+</script>
+<script>
+    // Hiện dropdown khi hover
+    document.querySelectorAll('.dropdown').forEach(function(drop) {
+        drop.addEventListener('mouseenter', function() {
+            this.querySelector('.dropdown-content').style.display = 'block';
+        });
+        drop.addEventListener('mouseleave', function() {
+            this.querySelector('.dropdown-content').style.display = 'none';
+        });
+    });
 </script>
 </body>
 </html>

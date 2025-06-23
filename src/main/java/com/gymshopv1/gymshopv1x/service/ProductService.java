@@ -1,6 +1,7 @@
 package com.gymshopv1.gymshopv1x.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.gymshopv1.gymshopv1x.entity.Product;
 
@@ -24,5 +25,7 @@ public interface ProductService {
     List<Product> findAllOrderByPriceAsc();
 
     List<Product> findAllOrderByPriceDesc();
+
+    Product findByTitle(String title); // hoặc findByTitleIgnoreCase
 
 }

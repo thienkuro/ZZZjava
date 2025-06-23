@@ -32,7 +32,7 @@
     </div>
 
     <div class="header-2">
-        <h1>Gymshop.vn- Shop đồ tập GYM</h1>
+        <h1 style="text-transform: none;">Gymshop.vn- Shop đồ tập GYM</h1>
         <form th:action="@{/filter(view='home')}" method="get" class="search-bar-container">
             <input type="search" id="search-bar" name="keyword" placeholder="Tìm kiếm..." 
                 th:value="${keyword}">
@@ -47,35 +47,58 @@
         <div id="menu-bar" class="fas fa-bars"></div>
         <nav class="navbar navbar-margin-left-auto">
             <a th:href="@{/customer/home}">Trang chủ</a>
+
+<!-- DANH MỤC -->
             <div class="dropdown">
                 <a href="#" class="dropbtn">Danh mục <span class="fas fa-chevron-down"></span></a>
                 <div class="dropdown-content">
                     <a th:href="@{/filter(view='home')}">Tất cả</a>
-                    <a th:href="@{/filter(category='Dụng cụ tập tạ', view='home')}">Dụng cụ tập tạ</a>
-                    <a th:href="@{/filter(category='Máy tập Cardio', view='home')}">Máy tập Cardio</a>
-                    <a th:href="@{/filter(category='Dụng cụ tập toàn thân', view='home')}">Dụng cụ tập toàn thân</a>
-                    <a th:href="@{/filter(category='Phụ kiện tập luyện', view='home')}">Phụ kiện tập luyện</a>
-                    <a th:href="@{/filter(category='Dụng cụ hỗ trợ phục hồi', view='home')}">Dụng cụ hỗ trợ phục hồi</a>
-                    <a th:href="@{/filter(category='Thực phẩm bổ sung', view='home')}">Thực phẩm bổ sung</a>
-                    <a th:href="@{/filter(category='Dụng cụ đo lường sức khỏe', view='home')}">Dụng cụ đo lường sức khỏe</a>
+                    <a th:href="@{/filter(category='dungcutapta', keyword=${keyword}, sortPrice=${sortPrice}, view='home')}">Dụng cụ tập tạ</a>
+                    <a th:href="@{/filter(category='maytapcardio', keyword=${keyword}, sortPrice=${sortPrice}, view='home')}">Máy tập Cardio</a>
+                    <a th:href="@{/filter(category='dungcutaptoanthan', keyword=${keyword}, sortPrice=${sortPrice}, view='home')}">Dụng cụ tập toàn thân</a>
+                    <a th:href="@{/filter(category='phukientapluyen', keyword=${keyword}, sortPrice=${sortPrice}, view='home')}">Phụ kiện tập luyện</a>
+                    <a th:href="@{/filter(category='dungcuhotrophuchoi', keyword=${keyword}, sortPrice=${sortPrice}, view='home')}">Dụng cụ hỗ trợ phục hồi</a>
+                    <a th:href="@{/filter(category='thucphambosung', keyword=${keyword}, sortPrice=${sortPrice}, view='home')}">Thực phẩm bổ sung</a>
+                    <a th:href="@{/filter(category='dungcudoluongsuckhoe', keyword=${keyword}, sortPrice=${sortPrice}, view='home')}">Dụng cụ đo lường sức khỏe</a>
                 </div>
-
-
             </div>
+
+            <!-- SẮP XẾP THEO GIÁ -->
             <div class="dropdown">
                 <a href="#" class="dropbtn">Sắp xếp theo giá <span class="fas fa-chevron-down"></span></a>
                 <div class="dropdown-content">
-                    <a th:href="@{/filter(sortPrice='asc', view='home')}">Giá thấp đến cao</a>
-                    <a th:href="@{/filter(sortPrice='desc', view='home')}">Giá cao đến thấp</a>
+                    <a th:href="@{/filter(category=${category}, keyword=${keyword}, sortPrice='asc', view='home')}">Giá thấp đến cao</a>
+                    <a th:href="@{/filter(category=${category}, keyword=${keyword}, sortPrice='desc', view='home')}">Giá cao đến thấp</a>
                 </div>
             </div>
 
-            <a href="#contact">Liên hệ <span class="fas fa-phone"></span></a>
+
+            <div class="dropdown" style="position: relative;">
+                <a href="#contact" class="dropbtn">Liên hệ <span class="fas fa-phone"></span></a>
+                <div class="dropdown-content" style="
+                    display: none;
+                    position: absolute;
+                    background-color: #000;
+                    color: #fff;
+                    padding: 8px 12px;
+                    border-radius: 4px;
+                    top: 100%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    white-space: nowrap;">
+                    <h2 style="text-transform: none;">
+                        Số điện thoại: 0925273723<br>
+                    </h2>
+                    <h2 style="text-transform: none;">
+                        Email: thienlv.24ce@vku.udn.vn
+                    </h2>
+
+                </div>
+            </div>
         </nav>
 
         <div class="icons">
-            <a href="#" class="fas fa-shopping-cart" title="Giỏ hàng"></a>
-            <a th:href="@{/vitri}" class="fas fa-store location"></a>
+            <a th:href="@{/customer/login}" class="fas fa-shopping-cart" title="Giỏ hàng"></a>
             <div class="dropdown">
                 <a href="#" class="fas fa-user-circle" title="Tài khoản" onclick="toggleDropdown()"></a>
                 <div id="dropdownContent" class="dropdown-content">
@@ -176,6 +199,18 @@
             }
         });
     }
+</script>
+
+<script>
+    // Hiện dropdown khi hover
+    document.querySelectorAll('.dropdown').forEach(function(drop) {
+        drop.addEventListener('mouseenter', function() {
+            this.querySelector('.dropdown-content').style.display = 'block';
+        });
+        drop.addEventListener('mouseleave', function() {
+            this.querySelector('.dropdown-content').style.display = 'none';
+        });
+    });
 </script>
 
 </body>

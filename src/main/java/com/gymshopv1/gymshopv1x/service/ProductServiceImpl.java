@@ -1,6 +1,7 @@
 package com.gymshopv1.gymshopv1x.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,6 +77,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> findAllOrderByPriceDesc() {
         return productRepository.findAllByOrderByPriceDesc();
+    }
+
+    @Override
+    public Product findByTitle(String title) {
+        log.info("Tìm sản phẩm theo title: {}", title);
+        return productRepository.findByTitle(title)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm với tên: " + title));
     }
 
 }

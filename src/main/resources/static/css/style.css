@@ -402,34 +402,36 @@ main {
   }
 
 .product {
-  width: calc(20% - 24px); /* 100% chia cho 5 trừ khoảng cách */
-  margin: 12px;
-  padding: 15px;
-  border: 1px solid #473b3b;
-  border-radius: 15px;
-  text-align: center;
-  color: aqua;
-  height: 560px;
-  transition: transform 0.3s ease;
+    flex: 1 1 250px; /* Tự động giãn, tối thiểu 250px */
+    max-width: 300px;
+    height: auto;
+    margin: 10px;
+    padding: 15px;
+    border: 1px solid #473b3b;
+    border-radius: 15px;
+    text-align: center;
+    background-color: #fff;
+    color: #000;
+    transition: transform 0.3s ease;
 }
-
   .product:hover{
     transform: scale(1.1);
   }
 
-  .products {
+.products {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* hoặc space-between nếu muốn giãn đều */
-    padding: 0 20px;
-    }
+    justify-content: center; /* hoặc space-around */
+    gap: 20px;
+    padding: 20px;
+}
 
-
-    .product img {
+.product img {
     width: 100%;
-    height: 40%;
+    height: 200px; /* Chiều cao cố định ổn định hơn */
     object-fit: cover;
-  }
+}
+
 
 
   .product h3 {

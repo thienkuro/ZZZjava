@@ -132,7 +132,7 @@
     </div>
 
     <div class="header-2">
-        <h1>Gymshop.vn- Shop đồ tập GYM</h1>
+        <h1 style="text-transform: none;">Gymshop.vn- Shop đồ tập GYM</h1>
         <form th:action="@{/customer/product-list}" method="get" class="search-bar-container">
             <input type="search" id="search-bar" name="keyword" placeholder="Tìm kiếm..." 
                 th:value="${keyword}">
@@ -145,7 +145,7 @@
     <div class="header-3">
         <div id="menu-bar" class="fas fa-bars"></div>
         <nav class="navbar navbar-margin-left-auto">
-            <a th:href="@{/customer/product-list}">Trang chủ</a>
+            <a th:href="@{/customer/home}">Trang chủ</a>
             <div class="dropdown">
                 <a href="#" class="dropbtn">Danh mục <span class="fas fa-chevron-down"></span></a>
                 <div class="dropdown-content">
@@ -167,13 +167,32 @@
                     <a href="#">Giá cao đến thấp</a>
                 </div>
             </div>
-            <a href="#contact">Liên hệ <span class="fas fa-phone"></span></a>
+            <div class="dropdown" style="position: relative;">
+                <a href="#contact" class="dropbtn">Liên hệ <span class="fas fa-phone"></span></a>
+                <div class="dropdown-content" style="
+                    display: none;
+                    position: absolute;
+                    background-color: #000;
+                    color: #fff;
+                    padding: 8px 12px;
+                    border-radius: 4px;
+                    top: 100%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    white-space: nowrap;">
+                    <h2 style="text-transform: none;">
+                        Số điện thoại: 0925273723<br>
+                    </h2>
+                    <h2 style="text-transform: none;">
+                        Email: thienlv.24ce@vku.udn.vn
+                    </h2>
+
+                </div>
+            </div>
         </nav>
 
         <div class="icons">
-            <a href="#" class="fas fa-shopping-cart" title="Giỏ hàng">
-            </a>
-            <a th:href="@{/vitri}" class="fas fa-store location"></a>
+            <a th:href="@{/customer/login}" class="fas fa-shopping-cart" title="Giỏ hàng"></a>
             <div class="dropdown">
                 <a href="#" class="fas fa-user-circle" title="Tài khoản" onclick="toggleDropdown()">
                 </a>
@@ -223,14 +242,6 @@
                 <button type="submit" class="button" style="font-size: 20px;">Đăng nhập</button>
             </form>
 
-
-
-
-
-
-
-
-
             <div class="icons">
                 <span style="font-size: 20px;">Hoặc đăng nhập bằng:</span>
                 <a href="#" class="fab fa-facebook"></a>
@@ -251,7 +262,6 @@
             <form th:action="@{/customer/register}" method="get">
                 <button class="button" type="submit" style="font-size: 20px;">Tiếp Tục</button>
             </form>
-
         </div>
     </div>
 

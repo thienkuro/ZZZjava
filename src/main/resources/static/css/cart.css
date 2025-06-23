@@ -26,26 +26,101 @@ html{
        color: #f684c3;
 }
 
+
 .header-1,
 .header-2,
-.header-3{
+.header-3 {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 2rem 9%;
-    background:var(--pink) ;
-
-}
-.navbar a {
-    padding: 14px 20px;
-    display: inline-block;
-    color: black;
-    text-decoration: none;
-    transition: background 0.3s;
+    background: var(--pink);
 }
 
-body {
-    font-family: Arial, sans-serif;
+.header-1 {
+    border-bottom: .1rem solid rgba(255, 255, 255, .2);
+}
+
+.header-3 {
+    background: white;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+    position: relative;
+    z-index: 10000;
+}
+
+.header-1 span {
+    font-weight: lighter;
+    color: white;
+    font-size: 1.7rem;
+}
+
+.header-1 a {
+    padding: 0 .7rem;
+    color: white;
+    font-size: 2rem;
+}
+
+.header-1 a:hover {
+    color: yellow;
+}
+
+.header-2 .search-bar-container {
+    display: flex;
+    align-items: center;
+    width: 50rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, .2);
+    border-radius: .5rem;
+}
+
+.header-2 .search-bar-container #search-bar {
+    width: 100%;
+    background: none;
+    text-transform: none;
+    color: white;
+    font-size: 1.7rem;
+}
+
+.header-2 .search-bar-container #search-bar::placeholder {
+    text-transform: capitalize;
+    color: #ddd;
+}
+
+.header-2 .search-bar-container label {
+    color: white;
+    cursor: pointer;
+    font-size: 2rem;
+    padding: 0 .5rem;
+}
+
+.header-2 .search-bar-container label:hover {
+    color: yellow;
+}
+
+.header-3 .navbar a {
+    color: #333;
+    font-size: 2rem;
+    margin-right: 2rem;
+}
+
+.header-3 .icons a {
+    color: #333;
+    font-size: 2.5rem;
+    margin-right: 2rem;
+}
+
+.header-3 a:hover {
+    color: var(--pink);
+}
+
+#menu-bar {
+    font-size: 3rem;
+    color: #333;
+    border: .1rem solid #333;
+    border-radius: .5rem;
+    padding: .5rem 1.5rem;
+    cursor: pointer;
+    display: none;
 }
 
 .icons {
@@ -264,14 +339,14 @@ p {
 
 
 
+
 .additional-options {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: -115px; /* Dịch chuyển lên trên */
-    margin-right: 20px; /* Dịch chuyển sang phải ít hơn */
+    transform: translateY(10%); /* Dịch xuống 10% */
+    margin-right: 20px;
 }
-
 .discount-code {
     display: flex;
     align-items: center;
@@ -403,7 +478,7 @@ h1 {
 .item-details {
     flex-grow: 1;
     font-size: 30px;
-    color: palevioletred;
+    color: rgb(0, 0, 0);
     margin-left: 100px;
 }
 

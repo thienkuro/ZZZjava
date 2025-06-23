@@ -143,13 +143,31 @@
                     <a href="#">Giá cao đến thấp</a>
                 </div>
             </div>
-            <a href="#contact">Liên hệ <span class="fas fa-phone"></span></a>
+            <div class="dropdown" style="position: relative;">
+                <a href="#contact" class="dropbtn">Liên hệ <span class="fas fa-phone"></span></a>
+                <div class="dropdown-content" style="
+                    display: none;
+                    position: absolute;
+                    background-color: #000;
+                    color: #fff;
+                    padding: 8px 12px;
+                    border-radius: 4px;
+                    top: 100%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    white-space: nowrap;">
+                    <h2 style="text-transform: none;">
+                        Số điện thoại: 0925273723<br>
+                    </h2>
+                    <h2 style="text-transform: none;">
+                        Email: thienlv.24ce@vku.udn.vn
+                    </h2>
+                </div>
+            </div>
         </nav>
 
         <div class="icons">
-            <a href="#" class="fas fa-shopping-cart" title="Giỏ hàng">
-            </a>
-            <a th:href="@{/vitri}" class="fas fa-store location"></a>
+            <a th:href="@{/customer/login}" class="fas fa-shopping-cart" title="Giỏ hàng"></a>
             <div class="dropdown">
                 <a href="#" class="fas fa-user-circle" title="Tài khoản" onclick="toggleDropdown()">
                 </a>
@@ -293,6 +311,17 @@
             }
         });
     }
+</script>
+<script>
+    // Hiện dropdown khi hover
+    document.querySelectorAll('.dropdown').forEach(function(drop) {
+        drop.addEventListener('mouseenter', function() {
+            this.querySelector('.dropdown-content').style.display = 'block';
+        });
+        drop.addEventListener('mouseleave', function() {
+            this.querySelector('.dropdown-content').style.display = 'none';
+        });
+    });
 </script>
 
 </body>

@@ -55,9 +55,16 @@ public class ProductFilterController {
         model.addAttribute("keyword", keyword);
         model.addAttribute("category", category);
         model.addAttribute("sortPrice", sortPrice);
+        model.addAttribute("view", view); // ✅ cần dòng này
 
         // Trả về trang đang lọc
-        return view != null && view.contains("list") ? "customer/product-list" : "customer/home";
+        if ("list".equals(view)) {
+            return "customer/product-list";
+        } else if ("admin".equals(view) || "dashboard".equals(view)) {
+            return "admin/dashboard";
+        } else {
+            return "customer/home";
+        }
 
     }
 }

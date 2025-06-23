@@ -7,12 +7,13 @@
     <link rel="icon" th:href="@{/images/logo.png}" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" th:href="@{/css/cart.css}">
+    <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
 </head>
 <body>
 
 <!-- HEADER -->
 <header>
-<div class="header-1">
+    <div class="header-1">
         <div class="share">
             <span>Subscribe to our :</span>
             <a href="#" class="fab fa-facebook" title="Facebook"><span class="visually-hidden">Facebook</span></a>
@@ -24,7 +25,7 @@
     </div>
 
     <div class="header-2">
-        <h1>Gymshop.vn- Shop đồ tập GYM</h1>
+        <h1 style="text-transform: none;">Gymshop.vn- Shop đồ tập GYM</h1>
         <form th:action="@{/customer/product-list}" method="get" class="search-bar-container">
             <input type="search" id="search-bar" name="keyword" placeholder="Tìm kiếm..." 
                 th:value="${keyword}">
@@ -82,7 +83,6 @@
 </header>
 
 <!-- THÔNG BÁO -->
-<!-- THÔNG BÁO -->
 <div th:if="${message}" style="text-align:center; color: green; font-weight: bold; font-size: 20px; margin: 10px 0;">
     <p th:text="${message}"></p>
 </div>
@@ -96,8 +96,8 @@
     </div>
 
     <div class="cart-item" th:each="item : ${cart}">
+    <img th:src="@{${'/' + item.product.imageUrl}}" alt="Ảnh sản phẩm" />
     <div class="item-details" style="transform: scale(0.5); transform-origin: top left;">
-    <img th:src="@{/${item.product.imageUrl}}" alt="Ảnh sản phẩm">
     <h2 th:text="${item.product.title}">Tên sản phẩm</h2>
     <p>Giá: <span th:text="${#numbers.formatInteger(item.product.price, 0, 'POINT')} + ' VND'">0 VND</span></p>
     <p>Số lượng: <span th:text="${item.quantity}">1</span></p>

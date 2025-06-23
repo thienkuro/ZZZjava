@@ -7,86 +7,78 @@
     <link rel="icon" href="/images/logo.png" th:href="@{/images/logo.png}" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="/css/form.css"  th:href="@{/css/form.css}">
     <style>
     body {
         font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        font-size: 16px; /* Tăng cỡ chữ toàn trang */
     }
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px auto;
+    main {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
         background-color: #fff;
         border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        font-size: 16px; /* ✅ Cỡ chữ trong bảng */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-    thead {
-        background-color: #009879;
-        color: #ffffff;
-        text-align: left;
-    }
-
-    th, td {
-        padding: 12px 15px;
-        border-bottom: 1px solid #ddd;
-        vertical-align: middle;
-    }
-
-    tbody tr:hover {
-        background-color: #f3f3f3;
-    }
-
-    img {
-        height: 80px;
-        border-radius: 6px;
-    }
-
-    .actions a,
-    .actions button {
-        margin: 0 4px;
-        text-decoration: none;
-        color: #007bff;
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: 14px;
-    }
-
-    .actions button:hover,
-    .actions a:hover {
-        text-decoration: underline;
-    }
-
-    .add-btn {
-        display: inline-block;
-        margin: 20px 0;
-        padding: 8px 14px;
-        background-color: #28a745;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        font-weight: bold;
-        transition: background-color 0.3s;
-    }
-
-    .add-btn:hover {
-        background-color: #218838;
-    }
-
-    .badge {
-        background-color: orange;
-        color: white;
-        padding: 4px 8px;
-        border-radius: 12px;
-        font-size: 12px;
-    }
-
-    .center-text {
+    h2 {
         text-align: center;
+        margin-bottom: 20px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        margin-top: 12px;
+        font-weight: bold;
+    }
+
+    input, select {
+        padding: 10px;
+        font-size: 16px;
+        margin-top: 6px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 150%; /* Tăng bề rộng lên 1.5 lần */
+        max-width: 100%; /* Giới hạn không vượt quá main */
+        box-sizing: border-box;
+        text-transform: none;
+    }
+
+    button {
         margin-top: 20px;
+        padding: 12px;
+        font-size: 16px;
+        background-color: green;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: fit-content;
+    }
+
+    button:hover {
+        background-color: darkgreen;
+    }
+
+    a {
+        margin-top: 20px;
+        display: inline-block;
+        text-align: center;
+        color: blue;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+    a:hover {
+        text-decoration: underline;
     }
 </style>
 
@@ -173,78 +165,112 @@
                     </div>
                 </div>
             </div>
-        </div>>
+        </div>
 </header>
+<main>
+    
 
-    <div class="center-text">
-    <h1>GYMSHOP - Dụng cụ tập GYM</h1>
+    <form th:action="@{/admin/manage-products/save}" th:object="${product}" method="post">
+        <h3 th:text="${product.id} != null ? '✏️ Sửa sản phẩm' : '➕ Thêm sản phẩm mới'">Form sản phẩm</h3>
+        <input type="hidden" th:field="*{id}" />
+
+        <label for="title">Tên sản phẩm:</label>
+        <input type="text" id="title" th:field="*{title}" required />
+
+        <label for="imageUrl">URL ảnh:</label>
+        <input type="text" id="imageUrl" th:field="*{imageUrl}" />
+
+        <label for="price">Giá:</label>
+        <input type="number" id="price" th:field="*{price}" required />
+
+        <label for="category">Danh mục:</label>
+        <input type="text" id="category" th:field="*{category}" />
+
+        <label for="origin">Xuất xứ:</label>
+        <input type="text" id="origin" th:field="*{origin}" />
+
+        <label for="sold">Số lượng đã bán:</label>
+        <input type="number" id="sold" th:field="*{sold}" required />
+
+        <label for="dateAdded">Ngày thêm:</label>
+        <input type="date" id="dateAdded" th:field="*{dateAdded}" required />
+
+        <label for="adminId">Admin ID:</label>
+        <input type="number" id="adminId" th:field="*{adminId}" required />
+
+        <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
+
+        <button type="submit">💾 Lưu</button>
+        <a th:href="@{/admin/manage-products}">⬅ Quay lại danh sách sản phẩm</a>
+    </form>
+
+    
+</main>
+
+
+<a th:href="@{/admin/manage-products}">⬅ Quay lại danh sách sản phẩm</a>
+
+
+<!-- Footer -->
+<div style="background-color: rgb(216, 212, 212);">
+    <div class="line" style="background-color: pink; width: 100%; height: 5px;"></div>
+    <div class="last-container">
+        <div class="hotline">
+            <li>
+                <h3>HỖ TRỢ KHÁCH HÀNG</h3><br>
+                <a href="#" style="color: #0043ff;">Hot line: <b>0925273723</b></a><br>
+                <a href="#">Các câu hỏi thường gặp</a><br>
+                <a href="#">Gửi yêu cầu hỗ trợ</a><br>
+                <a href="#">Hướng dẫn đặt hàng</a><br>
+                <a href="#">Phương thức vận chuyển</a><br>
+                <a href="#">Chính sách đổi trả</a><br>
+            </li>
+            <li class="g">
+                <h3>VỀ CHÚNG TÔI</h3><br>
+                <a href="#">Giới thiệu</a><br>
+                <a href="#">Liên hệ</a><br>
+                <a href="#">Chính sách bảo mật</a><br>
+                <a href="#">Điều khoản sử dụng</a><br>
+                <a href="#">Bảo mật thông tin</a><br>
+                <a href="#">Tư vấn khách hàng</a>
+            </li>
+            <li>
+                <h3>CẬP NHẬT THÔNG TIN KHUYẾN MÃI</h3><br>
+                <div class="last-one">
+                    <input type="email" placeholder="Nhập email của bạn">
+                    <button id="c">Cập nhật</button><br>
+                </div>
+                <br>    
+                <h3>KHIẾU NẠI GÓP Ý</h3><br>
+                <button>0925273723</button><br>
+            </li>
+        </div>
+        <h3>KẾT NỐI</h3>
+        <div class="ketnoi">
+            <img th:src="@{/images/facebook.jpg}" alt="facebook">
+            <img th:src="@{/images/instagram.jpg}" alt="instagram">
+            <img th:src="@{/images/gmail.jpg}" alt="gmail">
+        </div>
     </div>
-
-<p th:if="${products == null}">⚠️ Không có dữ liệu danh sách sản phẩm!</p>
-<p th:if="${products != null}"
-   th:text="'✅ Tìm thấy ' + ${#lists.size(products)} + ' sản phẩm.'"
-   style="font-size: 16px;"></p>
-
-
-<table>
-    <thead>
-        <tr>
-            <th>Ảnh</th>
-            <th>Tên sản phẩm</th>
-            <th>Danh mục</th>
-            <th>Giá</th>
-            <th>Đã bán</th>
-            <th>Xuất xứ</th>
-            <th>Ngày thêm</th>
-            <th>Hành động</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr th:each="product : ${products}">
-            <td>
-                <img th:if="${product.imageUrl != null}" 
-                     th:src="@{'/' + ${product.imageUrl}}" 
-                     alt="Ảnh sản phẩm" height="80" />
-                <img th:if="${product.imageUrl == null}" 
-                     src="/images/no-image.png" 
-                     alt="Không có ảnh" height="80" />
-            </td>
-            <td th:text="${product.title}">Tên</td>
-            <td th:text="${product.category}">Danh mục</td>
-            <td th:text="|${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} ₫|">0 ₫</td>
-            <td th:text="${product.sold}">0</td>
-            <td th:text="${product.origin}">Xuất xứ</td>
-            <td th:text="${product.dateAdded != null ? #temporals.format(product.dateAdded, 'dd/MM/yyyy') : 'Không có'}">Ngày thêm</td>
-            <td class="actions" style="display: flex; gap: 8px;">
-                <!-- Nút sửa -->
-                <a th:href="@{/admin/manage-products/edit/{id}(id=${product.id})}"
-                style="padding: 6px 12px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;">
-                    ✏️ Sửa
-                </a>
-
-                <!-- Nút xoá -->
-                <form th:action="@{/admin/manage-products/delete/{id}(id=${product.id})}"
-                    method="post">
-                    <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
-                    <button type="submit"
-                            onclick="return confirm('Xác nhận xóa sản phẩm này?')"
-                            style="padding: 6px 12px; background-color: #dc3545; color: white; border: none; border-radius: 4px;">
-                        🗑️ Xóa
-                    </button>
-                </form>
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-<!-- Nút thêm sản phẩm -->
-<div style="margin-top: 20px;">
-    <a class="add-btn" th:href="@{/admin/manage-products/product-form}">+ Thêm sản phẩm</a>
 </div>
-<script>
-var slideIndex = 0;
-showSlides();
-</script>
 
+<script>
+    function addToCart(event, form) {
+        event.preventDefault(); // Không reload
+        const formData = new FormData(form);
+
+        fetch('/customer/cart/add', {
+            method: 'POST',
+            body: formData
+        }).then(response => {
+            if (response.ok) {
+                // Hiển thị thông báo
+                const msg = document.getElementById('cart-success-message');
+                msg.style.display = 'block';
+                setTimeout(() => msg.style.display = 'none', 3000); // Tự ẩn sau 3s
+            }
+        });
+    }
+</script>
 </body>
 </html>

@@ -1,7 +1,9 @@
 package com.gymshopv1.gymshopv1x.controller;
 
+// import com.gymshopv1.gymshopv1x.entity.Order;
 import com.gymshopv1.gymshopv1x.entity.Product;
 import com.gymshopv1.gymshopv1x.entity.User;
+// import com.gymshopv1.gymshopv1x.service.OrderService;
 import com.gymshopv1.gymshopv1x.service.ProductService;
 import com.gymshopv1.gymshopv1x.service.UserService;
 
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +27,9 @@ public class CustomerController {
 
     @Autowired
     private UserService userService;
+
+    // @Autowired
+    // private OrderService orderService;
 
     // ======= TRANG CHỦ =======
     @GetMapping("/home")
@@ -56,10 +62,13 @@ public class CustomerController {
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            if (user.getPassword().equals(password)) {
-                session.setAttribute("loggedInUser", user);
 
-                // Điều hướng theo vai trò
+            if (user.getPassword().equals(password)) {
+                // Lưu thông tin user vào session
+                session.setAttribute("loggedInUser", user);
+                session.setAttribute("username", user.getUsername()); // hoặc getUsername()
+
+                // Chuyển hướng theo vai trò
                 if (Boolean.TRUE.equals(user.getAdmin())) {
                     return "redirect:/admin/dashboard";
                 } else {
@@ -68,7 +77,7 @@ public class CustomerController {
             }
         }
 
-        // Trường hợp sai
+        // Sai tài khoản hoặc mật khẩu
         model.addAttribute("error", "Sai email hoặc mật khẩu");
         return "customer/login";
     }
@@ -102,4 +111,22 @@ public class CustomerController {
             return "customer/register";
         }
     }
+
+    // @PostMapping("/checkout")
+    // public String checkout(@RequestParam Long productId,
+    // @RequestParam int quantity,
+    // HttpSession session) {
+    // User user = (User) session.getAttribute("loggedInUser");
+    // Product product = productService.findById(productId);
+
+    // Order order = new Order();
+    // order.setUser(user);
+    // order.setProduct(product);
+    // order.setQuantity(quantity);
+    // order.setOrderDate(LocalDate.now());
+    // order.setStatus("Đã đặt hàng");
+
+    // orderService.save(order);
+    // return "redirect:/customer/home?success";
+    // }
 }

@@ -33,7 +33,7 @@ public class ProductController {
     }
 
     // ✅ Hiển thị form thêm sản phẩm
-    @GetMapping("/add")
+    @GetMapping("/product-form")
     public String addForm(Model model) {
         model.addAttribute("product", new Product());
         return "admin/product-form"; // templates/admin/product-form.html
