@@ -51,6 +51,19 @@ public class AdminController {
         return "admin/dashboard";
     }
 
+    @GetMapping("/admin/manage-users")
+    public String manageUsers(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("loggedInUser");
+        if (!RoleChecker.isAdmin(user)) {
+            return "redirect:/customer/home";
+        }
+
+        List<User> users = userRepository.findAll(); // lấy danh sách người dùng
+        model.addAttribute("users", users); // truyền sang view
+
+        return "admin/manage-users"; // trả về tên file HTML
+    }
+
     @GetMapping("/admin/manage-orders")
     public String listOrders(Model model) {
         List<Order> orders = orderRepository.findAll();

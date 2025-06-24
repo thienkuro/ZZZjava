@@ -145,10 +145,10 @@
                         <p class="product-date" th:text="${product.dateAdded != null ? #temporals.format(product.dateAdded, 'dd/MM/yyyy') : 'Không có'}">Ngày thêm</p>
 
                         <form onsubmit="addToCart(event, this)">
-                        <input type="hidden" name="productId" th:value="${product.id}">
-                        <input type="number" name="quantity" value="1" min="1" style="width: 50px;">
-                        <button type="submit" class="order-btn">Thêm vào giỏ</button>
-                    </form>
+                            <input type="hidden" name="productId" th:value="${product.id}">
+                            <input type="number" name="quantity" value="1" min="1" style="width: 50px;">
+                            <button type="submit" class="order-btn">Thêm vào giỏ</button>
+                        </form>
                     </div>
                 </div>
             </div>
