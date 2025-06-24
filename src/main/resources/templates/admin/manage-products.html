@@ -177,14 +177,17 @@
 </header>
 
     <div class="center-text">
-    <h1>GYMSHOP - Dụng cụ tập GYM</h1>
+    <h1 style="color:red">GYMSHOP - Dụng cụ tập GYM</h1>
     </div>
 
 <p th:if="${products == null}">⚠️ Không có dữ liệu danh sách sản phẩm!</p>
 <p th:if="${products != null}"
    th:text="'✅ Tìm thấy ' + ${#lists.size(products)} + ' sản phẩm.'"
    style="font-size: 16px;"></p>
-
+<!-- Nút thêm sản phẩm -->
+<div style="margin-top: 20px; font-size: 16px; color: black;">
+    <a class="add-btn" th:href="@{/admin/manage-products/product-form}">+ Thêm sản phẩm</a>
+</div>
 
 <table>
     <thead>
@@ -237,10 +240,7 @@
     </tbody>
 </table>
 
-<!-- Nút thêm sản phẩm -->
-<div style="margin-top: 20px;">
-    <a class="add-btn" th:href="@{/admin/manage-products/product-form}">+ Thêm sản phẩm</a>
-</div>
+
 <script>
 var slideIndex = 0;
 showSlides();

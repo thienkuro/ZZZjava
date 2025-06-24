@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GYMSHOP - Thiết bị tập luyện</title>
+    <link rel="icon" href="/images/logo.png" th:href="@{/images/logo.png}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px auto;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        font-size: 16px; /* ✅ Cỡ chữ trong bảng */
+    }
+
+    thead {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: left;
+    }
+
+    th, td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #ddd;
+        vertical-align: middle;
+        text-transform: none;
+    }
+
+    tbody tr:hover {
+        background-color: #f3f3f3;
+    }
+
+    img {
+        height: 80px;
+        border-radius: 6px;
+    }
+
+    .actions a,
+    .actions button {
+        margin: 0 4px;
+        text-decoration: none;
+        color: #007bff;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .actions button:hover,
+    .actions a:hover {
+        text-decoration: underline;
+    }
+
+    .add-btn {
+        display: inline-block;
+        margin: 20px 0;
+        padding: 8px 14px;
+        background-color: #28a745;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+
+    .add-btn:hover {
+        background-color: #218838;
+    }
+
+    .badge {
+        background-color: orange;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+    }
+
+    .center-text {
+        text-align: center;
+        margin-top: 20px;
+    }
+    form {
+        font-size: 20px; /* tăng cỡ chữ */
+        text-transform: none; /* không viết hoa */
+    }
+
+    input, label, button {
+        font-size: 20px;
+        text-transform: none;
+    }
+</style>
+
+
+</head>
+<body>
+
+<header>
+    <div class="header-1">
+        <div class="share">
+            <span>Subscribe to our :</span>
+            <a href="#" class="fab fa-facebook" title="Facebook"><span class="visually-hidden">Facebook</span></a>
+            <a href="#" class="fab fa-google" title="Google"><span class="visually-hidden">Google</span></a>
+            <a href="#" class="fab fa-instagram" title="Instagram"><span class="visually-hidden">Instagram</span></a>
+            <a href="#" class="fab fa-tiktok" title="TikTok"><span class="visually-hidden">TikTok</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="header-2">
+        <h1 style="text-transform: none;">Gymshop.vn- Shop đồ tập GYM</h1>
+        <form th:action="@{/filter}" method="get" class="search-bar-container">
+            <input type="search" id="search-bar" name="keyword" placeholder="Tìm kiếm..." 
+                th:value="${keyword}">
+            <input type="hidden" name="category" th:value="${category}">
+            <input type="hidden" name="view" value="dashboard"> <!-- ✅ Cố định view là 'dashboard' -->
+            <label for="search-bar" class="fas fa-search" onclick="this.closest('form').submit()" style="cursor: pointer;"></label>
+            <button type="submit" style="display: none;"></button>
+        </form>
+
+
+    </div>
+
+    <div class="header-3">
+        <div id="menu-bar" class="fas fa-bars"></div>
+        <nav class="navbar navbar-margin-left-auto">
+            <a th:href="@{/admin/dashboard}">Trang chủ</a>
+            <div class="dropdown">
+                <a href="#" class="dropbtn">Danh mục <span class="fas fa-chevron-down"></span></a>
+                <div class="dropdown-content">
+                    <a th:href="@{/filter(view='dashboard')}">Tất cả</a>
+                    <a th:href="@{/filter(category='dungcutapta', view='dashboard')}">Dụng cụ tập tạ</a>
+                    <a th:href="@{/filter(category='maytapcardio', view='dashboard')}">Máy tập Cardio</a>
+                    <a th:href="@{/filter(category='dungcutaptoanthan', view='dashboard')}">Dụng cụ tập toàn thân</a>
+                    <a th:href="@{/filter(category='phukientapluyen', view='dashboard')}">Phụ kiện tập luyện</a>
+                    <a th:href="@{/filter(category='dungcuhotrophuchoi', view='dashboard')}">Dụng cụ hỗ trợ phục hồi</a>
+                    <a th:href="@{/filter(category='thucphambosung', view='dashboard')}">Thực phẩm bổ sung</a>
+                    <a th:href="@{/filter(category='dungcudoluongsuckhoe', view='dashboard')}">Dụng cụ đo lường sức khỏe</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="dropbtn">Sắp xếp theo giá <span class="fas fa-chevron-down"></span></a>
+                <div class="dropdown-content">
+                    <a th:href="@{/filter(category=${category}, keyword=${keyword}, sortPrice='asc', view='dashboard')}">Giá thấp đến cao</a>
+                    <a th:href="@{/filter(category=${category}, keyword=${keyword}, sortPrice='desc', view='dashboard')}">Giá cao đến thấp</a>
+                </div>
+
+            </div>
+
+            <a th:href="@{/admin/manage-products}">Quản lí sản phẩm</a>
+            <a th:href="@{/admin/manage-orders}">Đơn hàng</a>
+            <a th:href="@{/admin/manage-users}">Người dùng</a>
+
+        </nav>
+
+        <div class="icons">
+            <div class="dropdown">
+                <a href="@{/customer/profile}" class="fas fa-user-circle" title="Tài khoản"></a>
+                <div class="account-dropdown">
+                    <span class="dropbtn" style="display: flex; align-items: center; font-size: 16px; padding: 8px; color: #333;">
+                    <i class="fa fa-user" style="margin-right: 5px;"></i>
+                    <span th:if="${username != null}">
+                        Xin chào, <b th:text="${username}">Người dùng</b>
+                    </span>
+                    <span th:if="${username == null}">
+                        Tài khoản
+                    </span>
+                    <ul>
+                        <div class="dropdown-content">
+                            <a th:href="@{/customer/logout}">Đăng xuất</a>
+                        </div>
+                    </ul>
+                </span>
+                    </div>
+                </div>
+            </div>
+        </div>>
+</header>
+
+    <div class="center-text">
+    <h1 style="color:red">GYMSHOP - Dụng cụ tập GYM</h1></div></br>
+    </div>
+
+<h1 style="text-align: center;">Danh sách người dùng</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên</th>
+                <th>Địa chỉ</th>
+                <th>Ngày tạo</th>
+                <th>Email</th>
+                <th>Họ tên</th>
+                <th>Mật khẩu</th>
+                <th>Số điện thoại</th>
+                <th>Trạng thái</th>
+                <th>Ngày cập nhật</th>
+                <th>Admin</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}">1</td>
+                <td th:text="${user.username}">admin</td>
+                <td th:text="${user.address}">N/A</td>
+                <td th:text="${#dates.format(user.createdAt, 'yyyy-MM-dd')}">2025-06-21</td>
+                <td th:text="${user.email}">admin@example.com</td>
+                <td th:text="${user.fullName}">Quản trị viên</td>
+                <td th:text="${user.password}">12345</td>
+                <td th:text="${user.phoneNumber}">N/A</td>
+                <td th:text="${user.status}">active</td>
+                <td th:text="${#dates.format(user.updatedAt, 'yyyy-MM-dd')}">N/A</td>
+                <td th:text="${user.admin ? '✔' : '❌'}" class="center"></td>
+            </tr>
+        </tbody>
+    </table>
+
+<script>
+var slideIndex = 0;
+showSlides();
+</script>
+
+</body>
+</html>

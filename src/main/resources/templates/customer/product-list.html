@@ -106,6 +106,7 @@
                     </span>
                 </span>
 
+                <!-- Dropdown menu -->
                 <div class="dropdown-content" style="
                     display: none;
                     position: absolute;
@@ -113,12 +114,9 @@
                     min-width: 160px;
                     box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
                     z-index: 1;">
-                    <a th:href="@{/customer/logout}" style="
-                        color: black;
-                        padding: 12px 16px;
-                        text-decoration: none;
-                        display: block;
-                    ">Đăng xuất</a>
+                    
+                    <a th:href="@{/customer/profile}">Thông tin cá nhân</a>
+                    <a th:href="@{/customer/logout}">Đăng xuất</a>
                 </div>
             </div>
         </div>
