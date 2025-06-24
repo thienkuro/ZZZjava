@@ -21,11 +21,10 @@
 <header>
     <div class="header-1">
         <div class="share">
-            <span>Subscribe to our :</span>
-            <a href="#" class="fab fa-facebook" title="Facebook"><span class="visually-hidden">Facebook</span></a>
+            <a href="https://www.facebook.com/levanthien05052006" class="fab fa-facebook" title="Facebook"><span class="visually-hidden">Facebook</span></a>
             <a href="#" class="fab fa-google" title="Google"><span class="visually-hidden">Google</span></a>
-            <a href="#" class="fab fa-instagram" title="Instagram"><span class="visually-hidden">Instagram</span></a>
-            <a href="#" class="fab fa-tiktok" title="TikTok"><span class="visually-hidden">TikTok</span>
+            <a href="https://www.instagram.com/levanthien05052006" class="fab fa-instagram" title="Instagram"><span class="visually-hidden">Instagram</span></a>
+            <a href="https://tiktok.com/@lvthien05" class="fab fa-tiktok" title="TikTok"><span class="visually-hidden">TikTok</span>
             </a>
         </div>
     </div>
@@ -123,34 +122,34 @@
 </div>
 </header>
     <div class="center-text">
-    <h1>GYMSHOP - Dụng cụ tập GYM</h1>
+    <h1>GYMSHOP - Dụng cụ tập GYM</h1></br>
     </div>
 
 <!-- checkout.html -->
 
-<h2 style="text-align:center;">Thông tin đơn hàng</h2>
+<h1 style="text-align:center;">Thông tin đơn hàng</h1>
 <form th:action="@{/customer/cart/checkout}" method="post">
     <table style="width: 100%; max-width: 600px; margin: auto; border-collapse: collapse; background: #f9f9f9; border: 1px solid #ccc; border-radius: 8px;">
         <tr>
-            <td style="padding: 10px;"><label for="receiverName">Tên người nhận:</label></td>
+            <td style="padding: 10px;"><h2><label for="receiverName">Tên người nhận:</label></h2></td>
             <td style="padding: 10px;">
                 <input type="text" id="receiverName" name="receiverName" required style="width: 100%; padding: 8px;">
             </td>
         </tr>
         <tr>
-            <td style="padding: 10px;"><label for="receiverPhone">Số điện thoại:</label></td>
+            <td style="padding: 10px;"><label for="receiverPhone"><h2>Số điện thoại:</h2></label></td>
             <td style="padding: 10px;">
                 <input type="text" id="receiverPhone" name="receiverPhone" required style="width: 100%; padding: 8px;">
             </td>
         </tr>
         <tr>
-            <td style="padding: 10px;"><label for="shippingAddress">Địa chỉ giao hàng:</label></td>
+            <td style="padding: 10px;"><label for="shippingAddress"><h2>Địa chỉ giao hàng:</h2></label></td>
             <td style="padding: 10px;">
                 <textarea id="shippingAddress" name="shippingAddress" rows="3" required style="width: 100%; padding: 8px;"></textarea>
             </td>
         </tr>
         <tr>
-            <td style="padding: 10px;"><label for="note">Ghi chú:</label></td>
+            <td style="padding: 10px;"><label for="note"><h2>Ghi chú:</h2></label></td>
             <td style="padding: 10px;">
                 <textarea id="note" name="note" rows="3" style="width: 100%; padding: 8px;"></textarea>
             </td>
@@ -158,7 +157,7 @@
         <tr>
             <td colspan="2" style="padding: 10px; text-align: center;">
                 <button type="submit" style="padding: 10px 20px; width: 100%; background: #007bff; color: white; border: none; border-radius: 5px;">
-                    Xác nhận đặt hàng
+                    <h2>Xác nhận đặt hàng</h2>
                 </button>
             </td>
         </tr>
