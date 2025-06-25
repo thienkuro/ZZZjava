@@ -23,12 +23,13 @@ public class ProductFilterController {
             @RequestParam(name = "keyword", required = false) String keyword,
             @RequestParam(name = "category", required = false) String category,
             @RequestParam(name = "sortPrice", required = false) String sortPrice,
+            @RequestParam(name = "sortSold", required = false) String sortSold,
             @RequestParam(name = "view", defaultValue = "home") String view,
             Model model) {
 
         List<Product> products;
 
-        // Bước 1: lọc theo từ khóa và/hoặc danh mục
+        // Bước 1: lọc theo keyword và category
         if (keyword != null && !keyword.isEmpty() && category != null && !category.isEmpty()) {
             products = productService.searchByTitleAndCategory(keyword, category);
         } else if (keyword != null && !keyword.isEmpty()) {
@@ -39,7 +40,7 @@ public class ProductFilterController {
             products = productService.findAll();
         }
 
-        // Bước 2: sắp xếp theo giá nếu có
+        // Bước 2: sắp xếp theo giá nếu có yêu cầu
         if ("asc".equals(sortPrice)) {
             products = products.stream()
                     .sorted(Comparator.comparingInt(Product::getPrice))
@@ -50,14 +51,26 @@ public class ProductFilterController {
                     .collect(Collectors.toList());
         }
 
-        // Truyền lại dữ liệu để giữ trạng thái form
+        // Bước 3: sắp xếp theo số lượng bán nếu có yêu cầu
+        if ("asc".equals(sortSold)) {
+            products = products.stream()
+                    .sorted(Comparator.comparingInt(Product::getSold))
+                    .collect(Collectors.toList());
+        } else if ("desc".equals(sortSold)) {
+            products = products.stream()
+                    .sorted(Comparator.comparingInt(Product::getSold).reversed())
+                    .collect(Collectors.toList());
+        }
+
+        // Truyền dữ liệu sang view
         model.addAttribute("products", products);
         model.addAttribute("keyword", keyword);
         model.addAttribute("category", category);
         model.addAttribute("sortPrice", sortPrice);
-        model.addAttribute("view", view); // ✅ cần dòng này
+        model.addAttribute("sortSold", sortSold); // ✅ THÊM DÒNG NÀY
+        model.addAttribute("view", view);
 
-        // Trả về trang đang lọc
+        // Trả về đúng giao diện theo view
         if ("list".equals(view)) {
             return "customer/product-list";
         } else if ("admin".equals(view) || "dashboard".equals(view)) {
@@ -65,6 +78,5 @@ public class ProductFilterController {
         } else {
             return "customer/home";
         }
-
     }
 }

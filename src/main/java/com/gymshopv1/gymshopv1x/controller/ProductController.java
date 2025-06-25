@@ -16,7 +16,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    // ✅ Hiển thị danh sách sản phẩm cho admin
+    //  Hiển thị danh sách sản phẩm cho admin
     @GetMapping
     public String list(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
         List<Product> products;
@@ -32,14 +32,14 @@ public class ProductController {
         return "admin/manage-products"; // templates/admin/manage-products.html
     }
 
-    // ✅ Hiển thị form thêm sản phẩm
+    //  Hiển thị form thêm sản phẩm
     @GetMapping("/product-form")
     public String addForm(Model model) {
         model.addAttribute("product", new Product());
         return "admin/product-form"; // templates/admin/product-form.html
     }
 
-    // ✅ Hiển thị form chỉnh sửa sản phẩm
+    //  Hiển thị form chỉnh sửa sản phẩm
     @GetMapping("/edit/{id}")
     public String editForm(@PathVariable Long id, Model model) {
         try {
@@ -52,14 +52,14 @@ public class ProductController {
         }
     }
 
-    // ✅ Lưu sản phẩm (thêm hoặc cập nhật)
+    //  Lưu sản phẩm (thêm hoặc cập nhật)
     @PostMapping("/save")
     public String save(@ModelAttribute("product") Product product) {
         productService.save(product);
         return "redirect:/admin/manage-products";
     }
 
-    // ✅ Xoá sản phẩm
+    //  Xoá sản phẩm
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         productService.deleteById(id);

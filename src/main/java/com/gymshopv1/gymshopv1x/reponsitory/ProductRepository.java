@@ -22,4 +22,12 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
      Optional<Product> findByTitleIgnoreCase(String title); // nếu không phân biệt
 
+     List<Product> findByTitleContainingIgnoreCaseAndCategoryAndSold(String title, String category, int sold);
+
+     List<Product> findAllByOrderBySoldAsc();
+
+     List<Product> findAllByOrderBySoldDesc();
+
+     List<Product> findBySold(int sold);
+
 }

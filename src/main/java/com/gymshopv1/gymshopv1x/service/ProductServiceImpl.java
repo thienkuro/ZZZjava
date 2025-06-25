@@ -1,15 +1,11 @@
 package com.gymshopv1.gymshopv1x.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import com.gymshopv1.gymshopv1x.entity.Product;
 import com.gymshopv1.gymshopv1x.reponsitory.ProductRepository;
@@ -61,21 +57,25 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findByCategory(String category) {
+        log.info("Tìm sản phẩm theo category: {}", category);
         return productRepository.findByCategory(category);
     }
 
     @Override
     public List<Product> searchByTitleAndCategory(String title, String category) {
+        log.info("Tìm sản phẩm theo title và category: {}, {}", title, category);
         return productRepository.findByTitleContainingIgnoreCaseAndCategory(title, category);
     }
 
     @Override
     public List<Product> findAllOrderByPriceAsc() {
+        log.info("Lấy tất cả sản phẩm sắp xếp theo giá tăng dần");
         return productRepository.findAllByOrderByPriceAsc();
     }
 
     @Override
     public List<Product> findAllOrderByPriceDesc() {
+        log.info("Lấy tất cả sản phẩm sắp xếp theo giá giảm dần");
         return productRepository.findAllByOrderByPriceDesc();
     }
 
@@ -84,6 +84,30 @@ public class ProductServiceImpl implements ProductService {
         log.info("Tìm sản phẩm theo title: {}", title);
         return productRepository.findByTitle(title)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm với tên: " + title));
+    }
+
+    @Override
+    public List<Product> findAllOrderBySoldAsc() {
+        log.info("Lấy tất cả sản phẩm sắp xếp theo số lượng bán (tăng dần)");
+        return productRepository.findAllByOrderBySoldAsc();
+    }
+
+    @Override
+    public List<Product> findAllOrderBySoldDesc() {
+        log.info("Lấy tất cả sản phẩm sắp xếp theo số lượng bán (giảm dần)");
+        return productRepository.findAllByOrderBySoldDesc();
+    }
+
+    @Override
+    public List<Product> searchByTitleAndCategoryAndSold(String title, String category, int sold) {
+        log.info("Tìm sản phẩm theo title, category và sold: {}, {}, {}", title, category, sold);
+        return productRepository.findByTitleContainingIgnoreCaseAndCategoryAndSold(title, category, sold);
+    }
+
+    @Override
+    public List<Product> findBySold(int sold) {
+        log.info("Tìm sản phẩm theo số lượng đã bán: {}", sold);
+        return productRepository.findBySold(sold);
     }
 
 }

@@ -63,7 +63,13 @@
                     <a th:href="@{/filter(category=${category}, keyword=${keyword}, sortPrice='asc', view='dashboard')}">Giá thấp đến cao</a>
                     <a th:href="@{/filter(category=${category}, keyword=${keyword}, sortPrice='desc', view='dashboard')}">Giá cao đến thấp</a>
                 </div>
-
+            </div>
+            <div class="dropdown">
+                <a href="#" class="dropbtn">Số lượng đã bán <span class="fas fa-chevron-down"></span></a>
+                <div class="dropdown-content">
+                    <a th:href="@{'/filter'(category=${category}, keyword=${keyword}, sortSold='asc', view='dashboard')}">Tăng dần</a>
+                    <a th:href="@{'/filter'(category=${category}, keyword=${keyword}, sortSold='desc', view='dashboard')}">Giảm dần</a>
+                </div>
             </div>
 
             <a th:href="@{/admin/manage-products}">Quản lí sản phẩm</a>

@@ -22,24 +22,32 @@ public class ListController {
     public String showProductList(
             @RequestParam(name = "keyword", required = false) String keyword,
             @RequestParam(name = "category", required = false) String category,
+            @RequestParam(name = "sold", required = false) Integer sold, // <-- THÊM DÒNG NÀY
             Model model,
             HttpSession session) {
 
-        // ✅ Lấy người dùng từ session và thêm username vào model
+        // Lấy người dùng từ session
         User user = (User) session.getAttribute("loggedInUser");
         if (user != null) {
             model.addAttribute("username", user.getUsername());
         }
 
-        // ✅ Lọc sản phẩm theo keyword và category
+        // Lọc sản phẩm theo các tiêu chí
         List<Product> products;
+        boolean hasKeyword = keyword != null && !keyword.isEmpty();
+        boolean hasCategory = category != null && !category.isEmpty();
+        boolean hasSold = sold != null;
 
-        if (keyword != null && !keyword.isEmpty() && category != null && !category.isEmpty()) {
+        if (hasKeyword && hasCategory && hasSold) {
+            products = productService.searchByTitleAndCategoryAndSold(keyword, category, sold);
+        } else if (hasKeyword && hasCategory) {
             products = productService.searchByTitleAndCategory(keyword, category);
-        } else if (keyword != null && !keyword.isEmpty()) {
+        } else if (hasKeyword) {
             products = productService.searchByTitle(keyword);
-        } else if (category != null && !category.isEmpty()) {
+        } else if (hasCategory) {
             products = productService.findByCategory(category);
+        } else if (hasSold) {
+            products = productService.findBySold(sold);
         } else {
             products = productService.getAllProducts();
         }
@@ -47,6 +55,7 @@ public class ListController {
         model.addAttribute("products", products);
         model.addAttribute("keyword", keyword);
         model.addAttribute("category", category);
+        model.addAttribute("sold", sold);
 
         return "customer/product-list";
     }
